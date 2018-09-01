@@ -1,0 +1,34 @@
+div(:class="['node', { selected: selected(node) }, toClassName(node.name)]")
+  div.title
+    | {{node.name}}
+
+  // Outputs
+  div(v-for='output in Array.from(node.outputs.values())',style="text-align: right")
+    .output-title
+      | {{output.name}}
+    .socket.output(
+      v-socket:output="output", 
+      :class="toClassName(output.socket.name)",
+      :title="output.socket.name+'\\n'+output.socket.hint"
+    )
+
+  // Controls
+  div.control(
+    v-for='control in Array.from(node.controls.values())',
+    v-control="control"
+  )
+
+  // Inputs
+  div(v-for='input in Array.from(node.inputs.values())',style="text-align: left")
+    .socket.input(
+      v-socket:input="input",
+      :class="[toClassName(input.socket.name), input.multipleConnections?'multiple':'']"
+      :title="input.socket.name"
+    )
+    .input-title(
+      v-show='!input.showControl()'
+    ) {{input.name}}
+    .input-control(
+      v-show='input.showControl()'
+      v-control="input.control"
+    )
