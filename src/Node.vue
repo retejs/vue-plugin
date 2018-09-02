@@ -27,7 +27,7 @@
 import Socket from './Socket.vue';
 
 export default {
-  props: ['node', 'bindSocket', 'bindControl'],
+  props: ['node', 'editor', 'bindSocket', 'bindControl'],
   methods: {
     inputs(){
       return Array.from(this.node.inputs.values())
@@ -39,7 +39,7 @@ export default {
       return Array.from(this.node.controls.values())
     },
     selected() {
-      return editor.selected.contains(this.node) ? 'selected' : '';
+      return this.editor.selected.contains(this.node) ? 'selected' : '';
     },
   },
   directives: {
