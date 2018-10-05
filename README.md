@@ -15,7 +15,7 @@ import CustomControlComponent from './CustomControlComponent.vue';
 class MyComponent extends Rete.Component {
     constructor(){
         // ...
-        this.render = 'vue';
+        this.data.render = 'vue';
         this.data.component = CustomNodeComponent; // Vue.js component, not required
         this.data.props = {}; // props for the component above, not required
     }
@@ -24,9 +24,9 @@ class MyComponent extends Rete.Component {
 class MyControl extends Rete.Control {
     constructor(){
         // ...
-        this.render = 'vue';
-        this.component = CustomControlComponent; // Vue.js component, required
-        this.props = {}; // props for the component above, not required
+        this.data.render = 'vue';
+        this.data.component = CustomControlComponent; // Vue.js component, required
+        this.data.props = {}; // props for the component above, not required
     }
 }
 ```
