@@ -56,6 +56,7 @@ function install(editor, params) {
     });
 
     editor.on('connectioncreated connectionremoved', connection => {
+        update(connection.output.node)
         update(connection.input.node)
     });
 
