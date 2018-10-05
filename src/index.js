@@ -1,6 +1,8 @@
 import './filters';
 import Node from './Node.vue';
+import Socket from './Socket.vue';
 import Vue from 'vue';
+import mixin from './mixin';
 
 function createVue(el, vueComponent, vueProps) {
     const app = new Vue({
@@ -63,5 +65,8 @@ function install(editor, params) {
 }
 
 export default {
-    install
+    install,
+    mixin,
+    Node,
+    Socket
 }
