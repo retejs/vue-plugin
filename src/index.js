@@ -66,6 +66,7 @@ function install(editor, params) {
 }
 
 export default {
+    name: 'vue-render',
     install,
     mixin,
     Node,

@@ -1,6 +1,6 @@
 {
   "name": "rete-vue-render-plugin",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "",
   "main": "build/vue-render-plugin.min.js",
   "scripts": {
