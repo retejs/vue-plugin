@@ -50,7 +50,7 @@ function install(editor, params) {
     });
 
     editor.on('rendercontrol', ({ el, control }) => {
-        if (control.render && control.render !== 'alight') return;
+        if (control.render && control.render !== 'vue') return;
         control._vue = createControl(editor, { el, control });
         control.update = () => update(control)
     });
