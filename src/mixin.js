@@ -18,10 +18,18 @@ export default {
         socket: {
             bind(el, binding, vnode) {
                 vnode.context.bindSocket(el, binding.arg, binding.value);
+            },
+            update(el, binding, vnode) {
+                vnode.context.bindSocket(el, binding.arg, binding.value);
             }
         },
         control: {
             bind(el, binding, vnode) {
+                if (!binding.value) return;
+
+                vnode.context.bindControl(el, binding.value);
+            },
+            update(el, binding, vnode) {
                 if (!binding.value) return;
 
                 vnode.context.bindControl(el, binding.value);
