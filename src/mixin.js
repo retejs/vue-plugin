@@ -28,11 +28,6 @@ export default {
                 if (!binding.value) return;
 
                 vnode.context.bindControl(el, binding.value);
-            },
-            update(el, binding, vnode) {
-                if (!binding.value) return;
-
-                vnode.context.bindControl(el, binding.value);
             }
         }
     }
