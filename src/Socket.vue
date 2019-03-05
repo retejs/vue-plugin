@@ -1,7 +1,7 @@
 <template lang="pug">
 .socket(
   :class="[type, socket.name] | kebab",
-  :title="socket.name+'\\n'+socket.hint"
+  :title="socket.name"
 )
 </template>
 
