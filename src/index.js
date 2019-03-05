@@ -38,21 +38,24 @@ function createControl(editor, { el, control }) {
 }
 
 const update = (entity) => {
-    if (entity.vueContext)
-        entity.vueContext.$forceUpdate();
+    return new Promise((res) => {
+        if (entity.vueContext)
+            entity.vueContext.$forceUpdate();
+        entity.vueContext.$nextTick(res);
+    });
 }
 
 function install(editor, params) {
     editor.on('rendernode', ({ el, node, component, bindSocket, bindControl }) => {
         if (component.render && component.render !== 'vue') return;
         node._vue = createNode(editor, { el, node, component, bindSocket, bindControl });
-        node.update = () => update(node);
+        node.update = async () => await update(node);
     });
 
     editor.on('rendercontrol', ({ el, control }) => {
         if (control.render && control.render !== 'vue') return;
         control._vue = createControl(editor, { el, control });
-        control.update = () => update(control)
+        control.update = async () => await update(control)
     });
 
     editor.on('connectioncreated connectionremoved', connection => {
