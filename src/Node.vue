@@ -1,23 +1,34 @@
 <template lang="pug">
-  .node(:class='[selected(), node.name] | kebab')
-    .title {{node.name}}
+.node(:class="[selected(), node.name] | kebab")
+  .title {{node.name}}
 
-    // Top Controls
-    .control(v-for='control in controls()' v-control='control' v-if='control.renderAboveOutputs')
-    
-    // Outputs
-    .output(v-for='output in outputs()' :key='output.key')
-      .output-title {{output.name}}
-      socket(v-socket:output='output' type='output' :socket='output.socket')
-    
-    // Controls
-    .control(v-for='control in controls()' v-control='control' v-if='!control.renderAboveOutputs')
-    
-    // Inputs
-    .input(v-for='input in inputs()' :key='input.key')
-      socket(v-socket:input='input' type='input' :socket='input.socket')
-      .input-title(v-show='!input.showControl()') {{input.name}}
-      .input-control(v-show='input.showControl()' v-control='input.control')
+  // Top Controls
+  .control(
+    v-for='control in controls()',
+    v-control="control",
+    v-if="control.renderAboveOutputs"
+  )
+
+  // Outputs
+  .output(v-for='output in outputs()' :key="output.key")
+    .output-title {{output.name}}
+    Socket(v-socket:output="output", type="output", :socket="output.socket")
+
+  // Controls
+  .control(
+    v-for='control in controls()',
+    v-control="control",
+    v-if="!control.renderAboveOutputs"
+  )
+
+  // Inputs
+  .input(v-for='input in inputs()' :key="input.key")
+    Socket(v-socket:input="input", type="input", :socket="input.socket")
+    .input-title(v-show='!input.showControl()') {{input.name}}
+    .input-control(
+      v-show='input.showControl()'
+      v-control="input.control"
+    )
 </template>
 
 <script>
