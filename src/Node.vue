@@ -2,6 +2,13 @@
 .node(:class="[selected(), node.name] | kebab")
   .title {{node.name}}
 
+  // Top Controls
+  .control(
+    v-for='control in controls()',
+    v-control="control",
+    v-if="control.renderAboveOutputs"
+  )
+
   // Outputs
   .output(v-for='output in outputs()' :key="output.key")
     .output-title {{output.name}}
@@ -10,7 +17,8 @@
   // Controls
   .control(
     v-for='control in controls()',
-    v-control="control"
+    v-control="control",
+    v-if="!control.renderAboveOutputs"
   )
 
   // Inputs
