@@ -39,8 +39,9 @@ function createControl(editor, { el, control }) {
 
 const update = (entity) => {
     return new Promise((res) => {
-        if (entity.vueContext)
-            entity.vueContext.$forceUpdate();
+        if (!entity.vueContext) return res();
+
+        entity.vueContext.$forceUpdate();
         entity.vueContext.$nextTick(res);
     });
 }
