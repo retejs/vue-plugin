@@ -1,6 +1,6 @@
 {
   "name": "rete-vue-render-plugin",
-  "version": "0.3.5",
+  "version": "0.4.0",
   "description": "",
   "main": "build/vue-render-plugin.common.js",
   "module": "build/vue-render-plugin.esm.js",
