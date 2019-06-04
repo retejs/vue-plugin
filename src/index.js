@@ -17,8 +17,8 @@ function createVue(el, vueComponent, vueProps) {
     return app;
 }
 
-function createNode(editor, { el, node, component, bindSocket, bindControl }) {
-    const vueComponent = component.component || Node;
+function createNode(editor, CommonVueComponent, { el, node, component, bindSocket, bindControl }) {
+    const vueComponent = component.component || CommonVueComponent || Node;
     const vueProps = { ...component.props, node, editor, bindSocket, bindControl };
     const app = createVue(el, vueComponent, vueProps);
 
@@ -46,10 +46,10 @@ const update = (entity) => {
     });
 }
 
-function install(editor, params) {
+function install(editor, { component: CommonVueComponent }) {
     editor.on('rendernode', ({ el, node, component, bindSocket, bindControl }) => {
         if (component.render && component.render !== 'vue') return;
-        node._vue = createNode(editor, { el, node, component, bindSocket, bindControl });
+        node._vue = createNode(editor, CommonVueComponent, { el, node, component, bindSocket, bindControl });
         node.update = async () => await update(node);
     });
 
