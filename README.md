@@ -6,7 +6,10 @@ Vue Render
 import VueRenderPlugin from 'rete-vue-render-plugin';
 
 editor.use(VueRenderPlugin, {
-    component: CustomNodeComponent // optional
+    component: CustomNodeComponent, // optional
+    options: {
+        // router, plugin, etc.
+    }
 });
 ```
 
