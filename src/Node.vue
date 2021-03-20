@@ -10,6 +10,7 @@
   // Controls
   .control(
     v-for='control in controls()',
+    :key="control.key",
     v-control="control"
   )
 
