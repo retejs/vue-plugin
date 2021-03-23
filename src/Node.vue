@@ -1,42 +1,65 @@
-<template lang="pug">
-.node(:class="[selected(), node.name] | kebab")
-  .title {{node.name}}
-
-  // Outputs
-  .output(v-for='output in outputs()' :key="output.key")
-    .output-title {{output.name}}
-    Socket(v-socket:output="output", type="output", :socket="output.socket")
-
-  // Controls
-  .control(
-    v-for='control in controls()',
-    :key="control.key",
-    v-control="control"
-  )
-
-  // Inputs
-  .input(v-for='input in inputs()' :key="input.key")
-    Socket(v-socket:input="input", type="input", :socket="input.socket")
-    .input-title(v-show='!input.showControl()') {{input.name}}
-    .input-control(
-      v-show='input.showControl()'
-      v-control="input.control"
-    )
+<template>
+  <div class="node" :class="className">
+    <div class="title">{{ node.name }}</div>
+    <!-- Outputs-->
+    <div class="output" v-for="output in outputs()" :key="output.key">
+      <div class="output-title">{{ output.name }}</div>
+      <Socket
+        v-socket:output="output"
+        type="output"
+        :socket="output.socket"
+      ></Socket>
+    </div>
+    <!-- Controls-->
+    <div
+      class="control"
+      v-for="control in controls()"
+      :key="control.key"
+      v-control="control"
+    >
+    </div>
+    <!-- Inputs-->
+    <div class="input" v-for="input in inputs()" :key="input.key">
+      <Socket
+        v-socket:input="input"
+        type="input"
+        :socket="input.socket"
+      ></Socket>
+      <div class="input-title" v-show="!input.showControl()">
+        {{ input.name }}
+      </div>
+      <div
+        class="input-control"
+        v-show="input.showControl()"
+        v-control="input.control"
+      ></div>
+    </div>
+  </div>
 </template>
 
-<script>
-import mixin from './mixin';
-import Socket from './Socket.vue';
-
-export default {
-  mixins: [mixin],
+<script lang="ts">
+import { defineComponent, computed } from "vue";
+import Socket from "./Socket.vue";
+import { kebab } from "./utils";
+export default defineComponent({
+  name: "node",
   components: {
     Socket
+  },
+  setup(props:any) {
+    const selected = () => {
+      return props.editor.selected.contains(props.node) ? "selected" : "";
+    };
+    const className = computed(() => {
+      return kebab([selected(), props.node.name]);
+    });
+
+    return { className };
   }
-}
+});
 </script>
 
-<style lang="sass" scoped>
+<style scoped lang="sass">
 @import "./vars"
 
 .node

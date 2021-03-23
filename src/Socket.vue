@@ -1,14 +1,21 @@
-<template lang="pug">
-.socket(
-  :class="[type, socket.name] | kebab",
-  :title="socket.name"
-)
+<template>
+  <div class="socket" :class="className" :title="socket.name"></div>
 </template>
 
-<script>
-export default {
-  props: ['type', 'socket']
-}
+<script lang="ts">
+import { defineComponent, computed } from "vue";
+import { kebab } from "./utils";
+export default defineComponent({
+  props: ["type", "socket"],
+  setup(props) {
+    const className = computed(() => {
+      return kebab([props.type, props.socket.name]);
+    });
+    return {
+      className
+    };
+  }
+});
 </script>
 
 <style lang="sass" scoped>
