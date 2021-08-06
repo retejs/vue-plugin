@@ -3,12 +3,9 @@ import Socket from './Socket.vue';
 import { createApp } from 'vue';
 
 function createVue(el, vueComponent, vueProps, options = {}, node) {
-    vueComponent.mounted = function() {
-        node.vueContext = this;
-    };
     const app = createApp(vueComponent, vueProps);
 
-    app.mount(el);
+    node.vueContext = app.mount(el);
     return app;
 }
 
