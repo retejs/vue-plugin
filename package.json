@@ -1,6 +1,6 @@
 {
   "name": "rete-vue-render-plugin",
-  "version": "0.5.1",
+  "version": "1.0.0-rc1",
   "description": "",
   "main": "build/vue-render-plugin.common.js",
   "module": "build/vue-render-plugin.esm.js",
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "node-sass": "^6.0.1",
-    "rete-cli": "^0.6.1-rc1",
+    "rete-cli": "^0.6.1-rc2",
     "rollup-plugin-commonjs": "9.2.2",
     "rollup-plugin-pug": "^0.1.6",
     "rollup-plugin-sass": "^1.2.2",
