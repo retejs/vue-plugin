@@ -1,4 +1,4 @@
-Vue Render
+Vue Render for Vue 3 (experimental)
 ====
 #### Rete.js plugin
 
