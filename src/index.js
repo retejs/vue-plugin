@@ -1,4 +1,5 @@
 import Node from './Node.vue';
+import Socket from './Socket.vue';
 import { createApp } from 'vue';
 
 function createVue(el, vueComponent, vueProps, options = {}, node) {
@@ -82,5 +83,7 @@ function install(editor, { component: CommonVueComponent, options }) {
 
 export default {
     name: 'vue-render',
-    install
+    install,
+    Node,
+    Socket
 };
