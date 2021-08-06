@@ -1,4 +1,3 @@
-import Mixin from './mixin';
 import Node from './Node.vue';
 import { createApp } from 'vue';
 
@@ -8,7 +7,6 @@ function createVue(el, vueComponent, vueProps, options = {}, node) {
     };
     const app = createApp(vueComponent, vueProps);
 
-    app.mixin(Mixin);
     app.mount(el);
     return app;
 }

@@ -16,16 +16,15 @@ export default {
     },
     directives: {
         socket: {
-            mounted(el, binding, vnode) {
+            beforeMount(el, binding) {
                 binding.instance.bindSocket(el, binding.arg, binding.value);
             },
-            update(el, binding, vnode) {
+            updated(el, binding) {
                 binding.instance.bindSocket(el, binding.arg, binding.value);
             }
         },
         control: {
-            mounted(el, binding, vnode) {
-                console.log('>> mounted')
+            beforeMount(el, binding) {
                 if (!binding.value) return;
                 binding.instance.bindControl(el, binding.value);
             }

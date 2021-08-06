@@ -39,6 +39,7 @@
 
 <script>
 import { defineComponent, computed } from "vue";
+import Mixin from './mixin';
 import Socket from "./Socket.vue";
 import { kebab } from "./utils";
 export default defineComponent({
@@ -46,6 +47,7 @@ export default defineComponent({
   components: {
     Socket
   },
+  mixins: [Mixin],
   setup(props) {
     const selected = () => {
       return props.editor.selected.contains(props.node) ? "selected" : "";
