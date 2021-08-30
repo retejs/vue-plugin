@@ -1,5 +1,5 @@
 <template>
-  <div class="node" :class="className">
+  <div class="node" :class="className()">
     <div class="title">{{ node.name }}</div>
     <!-- Outputs-->
     <div class="output" v-for="output in outputs()" :key="output.key">
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { defineComponent, computed } from "vue";
+import { defineComponent } from "vue";
 import Mixin from './mixin';
 import Socket from "./Socket.vue";
 import { kebab } from "./utils";
@@ -52,9 +52,9 @@ export default defineComponent({
     const selected = () => {
       return props.editor.selected.contains(props.node) ? "selected" : "";
     };
-    const className = computed(() => {
+    const className = () => {
       return kebab([selected(), props.node.name]);
-    });
+    };
 
     return { className };
   }
