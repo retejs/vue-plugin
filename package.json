@@ -15,17 +15,14 @@
     "type": "git",
     "url": "https://github.com/retejs/vue-render-plugin.git"
   },
-  "dependencies": {
-    "@vue/compiler-sfc": "^3.1.5",
-    "vue": "^3.1.5"
-  },
   "devDependencies": {
+    "@vue/compiler-sfc": "^3.1.5",
     "node-sass": "^6.0.1",
     "rete-cli": "^0.6.1-rc2",
     "rollup-plugin-commonjs": "9.2.2",
-    "rollup-plugin-pug": "^0.1.6",
     "rollup-plugin-sass": "^1.2.2",
     "rollup-plugin-scss": "^3.0.0",
-    "rollup-plugin-vue": "^6.0.0"
+    "rollup-plugin-vue": "^6.0.0",
+    "vue": "^3.1.5"
   }
 }
