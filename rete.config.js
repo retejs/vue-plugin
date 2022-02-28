@@ -1,4 +1,4 @@
-import commonjs from 'rollup-plugin-commonjs';
+import commonjs from '@rollup/plugin-commonjs';
 import scss from 'rollup-plugin-scss';
 import vue from 'rollup-plugin-vue';
 
