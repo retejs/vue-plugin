@@ -2,7 +2,7 @@ import Node from './Node.vue';
 import Socket from './Socket.vue';
 import { createApp } from 'vue';
 
-function createVue(el, vueComponent, vueProps, options = {}, node) {
+function createVue(el, vueComponent, vueProps, node) {
     const app = createApp(vueComponent, vueProps);
 
     node.vueContext = app.mount(el);
@@ -12,8 +12,7 @@ function createVue(el, vueComponent, vueProps, options = {}, node) {
 function createNode(
     editor,
     CommonVueComponent,
-    { el, node, component, bindSocket, bindControl },
-    options
+    { el, node, component, bindSocket, bindControl }
 ) {
     const vueComponent = component.component || CommonVueComponent || Node;
     const vueProps = {
@@ -24,10 +23,10 @@ function createNode(
         bindControl
     };
 
-    return createVue(el, vueComponent, vueProps, options, node);
+    return createVue(el, vueComponent, vueProps, node);
 }
 
-function createControl(editor, { el, control }, options) {
+function createControl(editor, { el, control }) {
     const vueComponent = control.component;
     const vueProps = {
         ...control.props,
@@ -35,7 +34,7 @@ function createControl(editor, { el, control }, options) {
         putData: control.putData.bind(control)
     };
 
-    return createVue(el, vueComponent, vueProps, options, control);
+    return createVue(el, vueComponent, vueProps, control);
 }
 
 const update = entity => {
@@ -47,7 +46,7 @@ const update = entity => {
     });
 };
 
-function install(editor, { component: CommonVueComponent, options }) {
+function install(editor, { component: CommonVueComponent }) {
     editor.on(
         'rendernode',
         ({ el, node, component, bindSocket, bindControl }) => {
@@ -55,8 +54,7 @@ function install(editor, { component: CommonVueComponent, options }) {
             node._vue = createNode(
                 editor,
                 CommonVueComponent,
-                { el, node, component, bindSocket, bindControl },
-                options
+                { el, node, component, bindSocket, bindControl }
             );
             node.update = async () => await update(node);
         }
@@ -64,7 +62,7 @@ function install(editor, { component: CommonVueComponent, options }) {
 
     editor.on('rendercontrol', ({ el, control }) => {
         if (control.render && control.render !== 'vue') return;
-        control._vue = createControl(editor, { el, control }, options);
+        control._vue = createControl(editor, { el, control });
         control.update = async () => await update(control);
     });
 

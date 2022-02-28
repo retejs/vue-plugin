@@ -62,6 +62,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+@use "sass:math";
 @import "./vars";
 
 .node {
@@ -110,7 +111,7 @@ export default defineComponent({
     display: inline-block;
   }
   .control {
-    padding: $socket-margin $socket-size/2 + $socket-margin;
+    padding: $socket-margin math.div($socket-size, 2) + $socket-margin;
   }
 }
 </style>

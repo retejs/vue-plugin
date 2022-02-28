@@ -19,13 +19,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@use "sass:math";
 @import "./vars";
 
 .socket {
   display: inline-block;
   cursor: pointer;
   border: 1px solid white;
-  border-radius: $socket-size/2.0;
+  border-radius: math.div($socket-size, 2);
   width: $socket-size;
   height: $socket-size;
   margin: $socket-margin;
@@ -40,10 +41,10 @@ export default defineComponent({
     border-color: yellow;
   }
   &.output {
-    margin-right: - $socket-size / 2;
+    margin-right: - math.div($socket-size, 2);
   }
   &.input {
-    margin-left: - $socket-size / 2;
+    margin-left: - math.div($socket-size, 2);
   }
 }
 </style>

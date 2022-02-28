@@ -1,9 +1,10 @@
 {
   "name": "rete-vue-render-plugin",
-  "version": "1.0.0-rc3",
+  "version": "1.0.0-rc4",
   "description": "",
   "main": "build/vue-render-plugin.common.js",
   "module": "build/vue-render-plugin.esm.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "build": "rete --build rete.config.js",
     "build:dev": "rete --build rete.config.js --watch",
