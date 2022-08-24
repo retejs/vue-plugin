@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, ref } from "vue";
 import Mixin from './mixin';
 import Socket from "./Socket.vue";
 import { kebab } from "./utils";
@@ -49,11 +49,14 @@ export default defineComponent({
   },
   mixins: [Mixin],
   setup(props) {
-    const selected = () => {
-      return props.editor.selected.contains(props.node) ? "selected" : "";
-    };
+    const selected = ref(props.editor.selected.contains(props.node) ? "selected" : "");
+
+    props.editor.on('selectnode', () => {
+      selected.value = props.editor.selected.contains(props.node) ? "selected" : "";
+    });
+
     const className = computed(() => {
-      return kebab([selected(), props.node.name]);
+      return kebab([selected.value, props.node.name]);
     });
 
     return { className };
