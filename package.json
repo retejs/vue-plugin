@@ -4,10 +4,12 @@
   "description": "",
   "main": "build/vue-render-plugin.common.js",
   "module": "build/vue-render-plugin.esm.js",
+  "types": "types/index.d.ts",
   "scripts": {
-    "build": "rete --build rete.config.js",
-    "build:dev": "rete --build rete.config.js --watch",
-    "prepublishOnly": "npm run build"
+    "build": "rete build -c rete.config.ts",
+    "build:dev": "rete build -c rete.config.ts --watch",
+    "prepublishOnly": "npm run build",
+    "lint": "rete lint"
   },
   "author": "Vitaliy Stoliarov",
   "license": "MIT",
@@ -15,16 +17,27 @@
     "type": "git",
     "url": "https://github.com/retejs/vue-render-plugin.git"
   },
-  "dependencies": {
-    "vue": "^2.6.6"
+  "peerDependencies": {
+    "rete": "file:../rete/rete-2.0.0-beta.1.tgz",
+    "rete-area-plugin": "file:../area-plugin/rete-area-plugin-0.2.1.tgz",
+    "vue": "^2.7 || ^3.2"
   },
   "devDependencies": {
-    "node-sass": "^4.9.3",
-    "rete-cli": "^0.5.0",
-    "rollup-plugin-commonjs": "9.2.2",
-    "rollup-plugin-pug": "^0.1.6",
-    "rollup-plugin-sass": "^0.9.2",
-    "rollup-plugin-vue": "^4.3.2",
-    "vue-template-compiler": "^2.6.6"
+    "@vitejs/plugin-vue": "^3.2.0",
+    "rete": "file:../rete/rete-2.0.0-beta.1.tgz",
+    "rete-area-plugin": "file:../area-plugin/rete-area-plugin-0.2.1.tgz",
+    "rete-cli": "^1.0.0-beta.12",
+    "rollup-plugin-commonjs": "^9.2.2",
+    "rollup-plugin-pug": "1.1.1",
+    "rollup-plugin-sass": "1.12.16",
+    "rollup-plugin-scss": "^3.0.0",
+    "rollup-plugin-styles": "^4.0.0",
+    "rollup-plugin-vue": "^6.0.0",
+    "sass": "^1.56.0",
+    "vue": "^3.2"
+  },
+  "dependencies": {
+    "rete-render-utils": "file:../render-utils/rete-render-utils-0.1.0.tgz",
+    "vue-demi": "^0.13.11"
   }
 }
