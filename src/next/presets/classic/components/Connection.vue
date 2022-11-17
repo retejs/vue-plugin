@@ -20,10 +20,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+/*! https://github.com/retejs/connection-plugin/commit/206ca0fd7fb82801ac45a0f7180ae05dff9ed901 */
 svg {
   overflow: visible !important;
   position: absolute;
-  z-index: -1;
   pointer-events: none;
   width: 9999px;
   height: 9999px;
