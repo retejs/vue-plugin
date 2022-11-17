@@ -3,20 +3,19 @@
   .title {{data.label}}
 
   // Outputs
-  .output(v-for='(output, key) in data.outputs' :key="key")
+  .output(v-for='[key, output] in outputs' :key="key")
     .output-title {{output.label}}
     .output-socket(:ref="el => onRef(el, key, output, 'output')")
-    //- Socket(v-socket:output="output", type="output", :socket="output.socket")
 
   // Controls
   .control(
-    v-for='(control, key) in data.controls',
+    v-for='[key, control] in controls',
     :key="key",
     :ref="el => onRef(el, key, control, 'control')"
   )
 
   // Inputs
-  .input(v-for='(input, key) in data.inputs' :key="key")
+  .input(v-for='[key, input] in inputs' :key="key")
     .input-socket(:ref="el => onRef(el, key, input, 'input')")
     .input-title(v-show='!input.showControl') {{input.label}}
     .input-control(
@@ -27,35 +26,59 @@
 
 
 <script lang="js">
-  import { defineComponent } from 'vue-demi'
+import { defineComponent } from 'vue-demi'
 
-  export default defineComponent({
-    props: ['data', 'emit'],
-    methods: {
-      onRef(element, key, entity, type) {
-        if (!element) return
+function sortByIndex(entries) {
+  entries.sort((a, b) => {
+    const ai = a[1] && a[1].index || 0
+    const bi = b[1] && b[1].index || 0
 
-        if (['output', 'input'].includes(type)) {
-          this.emit({ type: 'render', data: {
+    return ai - bi
+  })
+  return entries
+}
+
+export default defineComponent({
+  props: ['data', 'emit'],
+  methods: {
+    onRef(element, key, entity, type) {
+      if (!element) return
+
+      if (['output', 'input'].includes(type)) {
+        this.emit({
+          type: 'render', data: {
             type: 'socket',
             side: type,
             key,
             nodeId: this.data.id,
             element,
             payload: entity.socket
-          }})
-        } else if (type === 'control') {
-          this.emit({ type: 'render', data: {
+          }
+        })
+      } else if (type === 'control') {
+        this.emit({
+          type: 'render', data: {
             type: 'control',
             element,
             payload: entity
-          }})
-        }
+          }
+        })
       }
     }
-
-  })
-  </script>
+  },
+  computed: {
+    inputs() {
+      return sortByIndex(Object.entries(this.data.inputs))
+    },
+    controls() {
+      return sortByIndex(Object.entries(this.data.controls))
+    },
+    outputs() {
+      return sortByIndex(Object.entries(this.data.outputs))
+    }
+  }
+})
+</script>
 
 <style lang="scss" scoped>
 @use "sass:math";
