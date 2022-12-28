@@ -27,13 +27,11 @@ svg {
   pointer-events: none;
   width: 9999px;
   height: 9999px;
-  > * {
-      pointer-events: all;
-  }
   path {
     fill: none;
     stroke-width: 5px;
     stroke: steelblue;
+    pointer-events: auto;
   }
 }
 </style>
