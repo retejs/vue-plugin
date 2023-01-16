@@ -1,9 +1,9 @@
-import { ClassicPreset } from 'rete'
+import { CanAssignSignal, ClassicPreset } from 'rete'
 import { AreaPlugin } from 'rete-area-plugin'
 import { useDOMSocketPosition } from 'rete-render-utils'
 import { Component } from 'vue'
 
-import { ClassicScheme, ExtractPayload, SocketPositionWatcher, VueArea2D } from '../../types'
+import { ClassicScheme, ExtractPayload, RenderPayload, SocketPositionWatcher, VueArea2D } from '../../types'
 import { RenderPreset } from '../types'
 import Connection from './components/Connection.vue'
 import ConnectionWrapper from './components/ConnectionWrapper.vue'
@@ -23,25 +23,30 @@ type CustomizationProps<Schemes extends ClassicScheme> = {
     control?: <N extends ClassicPreset.Control>(data: ExtractPayload<Schemes, 'control'>)
         => ((props: { data: N }) => Component) | null
 }
-type ClasssicProps<Schemes extends ClassicScheme> = (
+type IsCompatible<K> = Extract<K, { type: 'render' }> extends { type: 'render', data: infer P } ? CanAssignSignal<P, RenderPayload<ClassicScheme>> : false // TODO should add type: 'render' ??
+type Substitute<K, Schemes extends ClassicScheme> = IsCompatible<K> extends true ? K : VueArea2D<Schemes>
+
+type ClasssicProps<Schemes extends ClassicScheme, K> = (
     | { socketPositionWatcher: SocketPositionWatcher }
-    | { area: AreaPlugin<Schemes, VueArea2D<Schemes>>}
+    | { area: AreaPlugin<Schemes, Substitute<K, Schemes>>}
 ) & {
     customize?: CustomizationProps<Schemes>
 }
 
-export function setup<Schemes extends ClassicScheme>(
-    props: ClasssicProps<Schemes>
+export function setup<Schemes extends ClassicScheme, K>(
+    props: ClasssicProps<Schemes, K>
 ): RenderPreset<Schemes, VueArea2D<Schemes>> {
     const socketPositionWatcher = 'socketPositionWatcher' in props
         ? props.socketPositionWatcher
-        : useDOMSocketPosition(props.area)
+        : useDOMSocketPosition(props.area as AreaPlugin<Schemes, VueArea2D<Schemes>>)
     const { node, connection, socket, control } = props.customize || {}
 
     return {
         update(context, plugin) {
             const { payload } = context.data
             const parent = plugin.parentScope()
+
+            if (!parent) throw new Error('parent')
             const emit = parent.emit.bind(parent)
 
             if (context.data.type === 'node') {
