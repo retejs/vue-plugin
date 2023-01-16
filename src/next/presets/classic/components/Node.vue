@@ -89,10 +89,10 @@ export default defineComponent({
   border: 2px solid #4e58bf;
   border-radius: 10px;
   cursor: pointer;
+  box-sizing: border-box;
   min-width: $node-width;
   height: auto;
   padding-bottom: 6px;
-  box-sizing: content-box;
   position: relative;
   user-select: none;
   &:hover {
