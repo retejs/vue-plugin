@@ -14,7 +14,7 @@ function createVue(el, vueComponent, vueProps, options = {}) {
 
     el.appendChild(nodeEl);
     app.$mount(nodeEl);
-    
+
     return app;
 }
 
@@ -65,8 +65,14 @@ function install(editor, { component: CommonVueComponent, options }) {
         update(connection.input.node)
     });
 
-    editor.on('nodeselected', () => {
-        editor.nodes.map(update);
+    let previousSelected = []
+
+    editor.on('nodeselected', (node) => {
+        const selected = [...editor.selected.list]
+
+        previousSelected.filter(node => !selected.includes(node)).forEach(update)
+        update(node)
+        previousSelected = selected
     });
 }
 
