@@ -26,7 +26,7 @@
 
 
 <script lang="js">
-import { defineComponent } from 'vue-demi'
+import { defineComponent } from 'vue'
 
 function sortByIndex(entries) {
   entries.sort((a, b) => {

@@ -9,27 +9,27 @@ export default defineComponent({
   props: ['component', 'data', 'start', 'end'],
   data() {
     return {
-      _start: { x: 0, y: 0 },
-      _end: { x: 0, y: 0 },
+      observedStart: { x: 0, y: 0 },
+      observedEnd: { x: 0, y: 0 },
       onDestroy: null
     }
   },
   computed: {
     startPosition() {
       if (this.start && 'x' in this.start) return this.start
-      return this._start
+      return this.observedStart
     },
     endPosition() {
       if (this.end && 'x' in this.end) return this.end
-      return this._end
+      return this.observedEnd
     }
   },
   created() {
     const unwatch1 = typeof this.start === 'function' && this.start(pos => {
-      this._start = pos
+      this.observedStart = pos
     })
     const unwatch2 = typeof this.end === 'function' && this.end(pos => {
-      this._end = pos
+      this.observedEnd = pos
     })
 
     this.onDestroy = () => {

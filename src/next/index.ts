@@ -13,7 +13,7 @@ export type { VueArea2D } from './types'
 export class VueRenderPlugin<Schemes extends BaseSchemes, T extends ExtraRender = never> extends Scope<never, Area2DInherited<Schemes, T>> {
     renderer: Renderer
     presets: RenderPreset<Schemes, T>[] = []
-    owners = new WeakMap<HTMLElement, RenderPreset<Schemes, T>>
+    owners = new WeakMap<HTMLElement, RenderPreset<Schemes, T>>()
 
     constructor() {
         super('vue-render')
@@ -62,7 +62,7 @@ export class VueRenderPlugin<Schemes extends BaseSchemes, T extends ExtraRender 
                     this.renderer.update(existing, result)
                 }
             })
-            return true
+            return true // TODO
         }
 
         for (const preset of this.presets) {

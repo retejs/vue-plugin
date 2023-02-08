@@ -1,4 +1,8 @@
-import { App, createApp, h } from 'vue-demi'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { create, destroy, update } from 'process.env.VUECOMPAT'
+
+type App<T> = any & T
 
 export type Renderer = {
   get(element: Element): App<Element> | undefined
@@ -15,40 +19,20 @@ export function getRenderer(): Renderer {
             return instances.get(element)
         },
         mount(element, vueComponent, payload, onRendered) {
-            const app = createApp({
-                props: ['data'],
-                render() {
-                    return h(vueComponent, this.data)
-                },
-                mounted() {
-                    onRendered()
-                },
-                updated() {
-                    onRendered()
-                }
-            }, { data: payload })
+            const app = create(element, vueComponent, payload, onRendered)
 
-            app.mount(element)
             instances.set(element, app)
 
             return app
         },
         update(app, payload) {
-            if (app._instance) {
-                const proxy = app._instance.proxy
-                const props = app._instance.props
-
-                props.data = { ...props.data as any, ...payload }
-
-                if (!proxy) throw new Error('cannot update')
-                proxy.$forceUpdate()
-            }
+            update(app, payload)
         },
         unmount(element) {
             const app = instances.get(element)
 
             if (app) {
-                app.unmount()
+                destroy(app)
                 instances.delete(element)
             }
         }

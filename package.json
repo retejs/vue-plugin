@@ -21,24 +21,27 @@
     "rete": "file:../rete/rete-2.0.0-beta.1.tgz",
     "rete-area-plugin": "file:../area-plugin/rete-area-plugin-0.2.1.tgz",
     "rete-render-utils": "file:../render-utils/rete-render-utils-0.1.0.tgz",
-    "vue": "^2.7 || ^3.2"
+    "vue": "^2.6 || ^3.2"
   },
   "devDependencies": {
+    "@rollup/plugin-replace": "^5.0.2",
     "@vitejs/plugin-vue": "^3.2.0",
+    "@vitejs/plugin-vue2": "^2.2.0",
+    "@vue/compiler-sfc": "^3.2.22",
     "rete": "file:../rete/rete-2.0.0-beta.1.tgz",
     "rete-area-plugin": "file:../area-plugin/rete-area-plugin-0.2.1.tgz",
-    "rete-cli": "^1.0.0-beta.15",
+    "rete-cli": "file:../rete-cli/rete-cli-1.0.0-beta.16.tgz",
     "rete-render-utils": "file:../render-utils/rete-render-utils-0.1.0.tgz",
     "rollup-plugin-commonjs": "^9.2.2",
     "rollup-plugin-pug": "1.1.1",
     "rollup-plugin-sass": "1.12.16",
     "rollup-plugin-scss": "^3.0.0",
+    "rollup-plugin-shell": "^1.0.9",
     "rollup-plugin-styles": "^4.0.0",
-    "rollup-plugin-vue": "^6.0.0",
     "sass": "^1.56.0",
-    "vue": "^3.2"
+    "vite": "^4.1.1",
+    "vue": "^2.7.14",
+    "vue-template-compiler": "^2.7.14"
   },
-  "dependencies": {
-    "vue-demi": "^0.13.11"
-  }
+  "dependencies": {}
 }
