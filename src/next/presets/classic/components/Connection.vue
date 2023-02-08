@@ -13,7 +13,7 @@ export default defineComponent({
     path() {
       const { start, end } = this
 
-      return start && end && classicConnectionPath([start.x, start.y, end.x, end.y], 0.3)
+      return start && end && classicConnectionPath([start, end], 0.3)
     }
   }
 })
