@@ -5,17 +5,9 @@ svg
 
 <script>
 import { defineComponent } from 'vue'
-import { classicConnectionPath } from 'rete-render-utils'
 
 export default defineComponent({
-  props: ['data', 'start', 'end'],
-  computed: {
-    path() {
-      const { start, end } = this
-
-      return start && end && classicConnectionPath([start, end], 0.3)
-    }
-  }
+  props: ['data', 'start', 'end', 'path']
 })
 </script>
 

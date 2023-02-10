@@ -1,16 +1,17 @@
 <template lang="pug">
-component(:is="component" v-bind="data" :start="startPosition" :end="endPosition")
+component(:is="component" v-bind="data" :start="startPosition" :end="endPosition", :path="observedPath")
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  props: ['component', 'data', 'start', 'end'],
+  props: ['component', 'data', 'start', 'end', 'path'],
   data() {
     return {
       observedStart: { x: 0, y: 0 },
       observedEnd: { x: 0, y: 0 },
+      observedPath: '',
       onDestroy: null
     }
   },
@@ -22,6 +23,17 @@ export default defineComponent({
     endPosition() {
       if (this.end && 'x' in this.end) return this.end
       return this.observedEnd
+    }
+  },
+  watch: {
+    startPosition() { this.fetchPath() },
+    endPosition() { this.fetchPath() }
+  },
+  methods: {
+    async fetchPath() {
+      if (this.startPosition && this.endPosition) {
+        this.observedPath = await this.path(this.startPosition, this.endPosition)
+      }
     }
   },
   created() {

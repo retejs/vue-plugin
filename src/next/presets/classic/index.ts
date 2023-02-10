@@ -1,9 +1,9 @@
 import { CanAssignSignal, ClassicPreset } from 'rete'
 import { AreaPlugin } from 'rete-area-plugin'
-import { useDOMSocketPosition } from 'rete-render-utils'
+import { classicConnectionPath, loopConnectionPath, useDOMSocketPosition } from 'rete-render-utils'
 import { Component } from 'vue'
 
-import { ClassicScheme, ExtractPayload, RenderPayload, SocketPositionWatcher, VueArea2D } from '../../types'
+import { ClassicScheme, ExtractPayload, Position, RenderPayload, SocketPositionWatcher, VueArea2D } from '../../types'
 import { RenderPreset } from '../types'
 import Connection from './components/Connection.vue'
 import ConnectionWrapper from './components/ConnectionWrapper.vue'
@@ -65,7 +65,6 @@ export function setup<Schemes extends ClassicScheme, K>(
         },
         // eslint-disable-next-line max-statements
         render(context, plugin) {
-            const { payload } = context.data
             const parent = plugin.parentScope()
             const emit = parent.emit.bind(parent)
 
@@ -73,28 +72,43 @@ export function setup<Schemes extends ClassicScheme, K>(
                 const component = node ? node(context.data) : Node
 
                 return component && { component, props: {
-                    data: payload,
+                    data: context.data.payload,
                     emit
                 } }
             } else if (context.data.type === 'connection') {
                 const component = connection ? connection(context.data) : Connection
-                const { start, end } = context.data
-                const { source, target, sourceOutput, targetInput } = context.data.payload
+                const { payload } = context.data
+                const { source, target, sourceOutput, targetInput } = payload
                 const watch = socketPositionWatcher
 
                 return component && { component: ConnectionWrapper, props: {
-                    data: payload,
+                    data: context.data.payload,
                     component,
-                    start: start || ((change: any) => watch(source, 'output', sourceOutput, change)),
-                    end: end || ((change: any) => watch(target, 'input', targetInput, change))
+                    start: context.data.start || ((change: any) => watch(source, 'output', sourceOutput, change)),
+                    end: context.data.end || ((change: any) => watch(target, 'input', targetInput, change)),
+                    path: async (start: Position, end: Position) => {
+                        const response = await plugin.emit({ type: 'connectionpath', data: { payload, points: [start, end] } })
+                        const { path, points } = response.data
+                        const curvature = 0.3
+
+                        if (!path && points.length !== 2) throw new Error('cannot render connection with a custom number of points')
+                        if (!path) return payload.isLoop
+                            ? loopConnectionPath(points as [Position, Position], curvature, 120)
+                            : classicConnectionPath(points as [Position, Position], curvature)
+
+                        return path
+                    },
                 } }
             } else if (context.data.type === 'socket') {
+                const { payload } = context.data
                 const component = socket ? socket(context.data) : Socket
 
                 return { component, props: {
                     data: payload
                 } }
             } else if (context.data.type === 'control') {
+                const { payload } = context.data
+
                 if (control) {
                     const component = control(context.data)
 

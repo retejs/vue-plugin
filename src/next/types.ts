@@ -14,7 +14,7 @@ type GetSockets<
   Union = Exclude<Intersection[keyof Intersection], undefined>
 > = Union extends { socket: any } ? Union['socket'] : Classic.Socket
 
-export type ClassicScheme = GetSchemes<Classic.Node, Classic.Connection<Classic.Node, Classic.Node>>
+export type ClassicScheme = GetSchemes<Classic.Node, Classic.Connection<Classic.Node, Classic.Node> & { isLoop?: boolean }>
 
 export type Side = 'input' | 'output'
 export type VueRenderData<T extends ClassicScheme> =

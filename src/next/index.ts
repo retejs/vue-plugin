@@ -3,14 +3,17 @@ import { Area2DInherited, RenderData } from 'rete-area-plugin'
 
 import { RenderPreset } from './presets/types'
 import { getRenderer, Renderer } from './renderer'
-import { ExtraRender } from './types'
+import { ExtraRender, Position } from './types'
 
 console.log('vue-render')
 
 export * as Presets from './presets'
 export type { VueArea2D } from './types'
 
-export class VueRenderPlugin<Schemes extends BaseSchemes, T extends ExtraRender = never> extends Scope<never, Area2DInherited<Schemes, T>> {
+export type Produces<Schemes extends BaseSchemes> =
+    | { type: 'connectionpath', data: { payload: Schemes['Connection'], path?: string, points: Position[] } }
+
+export class VueRenderPlugin<Schemes extends BaseSchemes, T extends ExtraRender = never> extends Scope<Produces<Schemes>, Area2DInherited<Schemes, T>> {
     renderer: Renderer
     presets: RenderPreset<Schemes, T>[] = []
     owners = new WeakMap<HTMLElement, RenderPreset<Schemes, T>>()
