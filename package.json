@@ -1,10 +1,7 @@
 {
   "name": "rete-vue-render-plugin",
-  "version": "0.5.1",
+  "version": "2.0.0-beta.1",
   "description": "",
-  "main": "build/vue-render-plugin.common.js",
-  "module": "build/vue-render-plugin.esm.js",
-  "types": "types/index.d.ts",
   "scripts": {
     "build": "rete build -c rete.config.ts",
     "build:dev": "rete build -c rete.config.ts --watch",
@@ -18,9 +15,9 @@
     "url": "https://github.com/retejs/vue-render-plugin.git"
   },
   "peerDependencies": {
-    "rete": "file:../rete/rete-2.0.0-beta.1.tgz",
-    "rete-area-plugin": "file:../area-plugin/rete-area-plugin-0.2.1.tgz",
-    "rete-render-utils": "file:../render-utils/rete-render-utils-0.1.0.tgz",
+    "rete": "file:../rete/dist/package.tgz",
+    "rete-area-plugin": "file:../area-plugin/dist/package.tgz",
+    "rete-render-utils": "file:../render-utils/dist/package.tgz",
     "vue": "^2.6 || ^3.2"
   },
   "devDependencies": {
@@ -28,15 +25,14 @@
     "@vitejs/plugin-vue": "^3.2.0",
     "@vitejs/plugin-vue2": "^2.2.0",
     "@vue/compiler-sfc": "^3.2.22",
-    "rete": "file:../rete/rete-2.0.0-beta.1.tgz",
-    "rete-area-plugin": "file:../area-plugin/rete-area-plugin-0.2.1.tgz",
-    "rete-cli": "file:../rete-cli/rete-cli-1.0.0-beta.17.tgz",
-    "rete-render-utils": "file:../render-utils/rete-render-utils-0.1.0.tgz",
+    "rete": "file:../rete/dist/package.tgz",
+    "rete-area-plugin": "file:../area-plugin/dist/package.tgz",
+    "rete-cli": "file:../rete-cli/rete-cli-1.0.0-beta.18.tgz",
+    "rete-render-utils": "file:../render-utils/dist/package.tgz",
     "rollup-plugin-commonjs": "^9.2.2",
     "rollup-plugin-pug": "1.1.1",
     "rollup-plugin-sass": "1.12.16",
     "rollup-plugin-scss": "^3.0.0",
-    "rollup-plugin-shell": "^1.0.9",
     "rollup-plugin-styles": "^4.0.0",
     "sass": "^1.56.0",
     "vite": "^4.1.1",

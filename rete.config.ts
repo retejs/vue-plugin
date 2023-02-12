@@ -4,7 +4,6 @@ import vue2 from '@vitejs/plugin-vue2'
 import { ReteOptions } from 'rete-cli'
 import pug from 'rollup-plugin-pug'
 import scss from 'rollup-plugin-scss'
-import execute from 'rollup-plugin-shell'
 
 function getPlugins(vueVersion: 2 | 3): NonNullable<ReteOptions['plugins']> {
     return [
@@ -24,27 +23,13 @@ function getPlugins(vueVersion: 2 | 3): NonNullable<ReteOptions['plugins']> {
     ]
 }
 
-function getVue2Package() {
-    return {
-        main: '../build/vue2/vue-render-plugin.common.js',
-        module: '../build/vue2/vue-render-plugin.esm.js',
-        types: '../types'
-    }
-}
-
 const vue3Config = {
-    output: 'build',
+    output: '.',
     plugins: getPlugins(3)
 }
 const vue2Config = {
-    output: 'build/vue2',
-    plugins: [
-        ...getPlugins(2),
-        execute({ commands: [
-            'mkdir -p vue2',
-            `echo '${JSON.stringify(getVue2Package(), null, 2)}' > vue2/package.json`
-        ], hook: 'buildStart' })
-    ]
+    output: 'vue2',
+    plugins: getPlugins(2)
 }
 
 export default <ReteOptions[]>[vue3Config, vue2Config].map(({ output, plugins }) => ({
