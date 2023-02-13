@@ -1,81 +1,91 @@
-export * from './next'
+import { BaseSchemes, Scope } from 'rete'
+import { Area2DInherited, RenderData } from 'rete-area-plugin'
 
-// import './filters';
-// import Node from './Node.vue';
-// import Socket from './Socket.vue';
-// import Vue from 'vue';
-// import mixin from './mixin';
+import { RenderPreset } from './presets/types'
+import { getRenderer, Renderer } from './renderer'
+import { ExtraRender, Position } from './types'
 
-// function createVue(el, vueComponent, vueProps, options = {}) {
-//     const app = new Vue({
-//         render: h => h(vueComponent, { props: vueProps }),
-//         ...options
-//     });
+console.log('vue-render')
 
-//     const nodeEl = document.createElement('div');
+export * as Presets from './presets'
+export type { VueArea2D } from './types'
 
-//     el.appendChild(nodeEl);
-//     app.$mount(nodeEl);
+export type Produces<Schemes extends BaseSchemes> =
+    | { type: 'connectionpath', data: { payload: Schemes['Connection'], path?: string, points: Position[] } }
 
-//     return app;
-// }
+export class VueRenderPlugin<Schemes extends BaseSchemes, T extends ExtraRender = never> extends Scope<Produces<Schemes>, Area2DInherited<Schemes, T>> {
+    renderer: Renderer
+    presets: RenderPreset<Schemes, T>[] = []
+    owners = new WeakMap<HTMLElement, RenderPreset<Schemes, T>>()
 
-// function createNode(editor, CommonVueComponent, { el, node, component, bindSocket, bindControl }, options) {
-//     const vueComponent = component.component || CommonVueComponent || Node;
-//     const vueProps = { ...component.props, node, editor, bindSocket, bindControl };
-//     const app = createVue(el, vueComponent, vueProps, options);
+    constructor() {
+        super('vue-render')
+        this.renderer = getRenderer()
 
-//     node.vueContext = app.$children[0];
+        this.addPipe(context => {
+            if (!('type' in context)) return context
 
-//     return app;
-// }
+            if (context.type === 'unmount') {
+                this.unmount(context.data.element)
+            } else if (context.type === 'render') {
+                if ('filled' in context.data && context.data.filled) {
+                    return context
+                }
+                if (this.mount(context.data.element, context as T)) {
+                    return {
+                        ...context,
+                        data: {
+                            ...context.data,
+                            filled: true
+                        }
+                    }
+                }
+            }
 
-// function createControl(editor, { el, control }, options) {
-//     const vueComponent = control.component;
-//     const vueProps = { ...control.props, getData: control.getData.bind(control), putData: control.putData.bind(control) };
-//     const app = createVue(el, vueComponent, vueProps, options);
+            return context
+        })
+    }
 
-//     control.vueContext = app.$children[0];
+    private unmount(element: HTMLElement) {
+        this.owners.delete(element)
+        this.renderer.unmount(element)
+    }
 
-//     return app;
-// }
+    // eslint-disable-next-line max-statements
+    private mount(element: HTMLElement, context: T) {
+        const existing = this.renderer.get(element)
+        const parent = this.parentScope()
 
-// const update = (entity) => {
-//     return new Promise((res) => {
-//         if (!entity.vueContext) return res();
+        if (existing) {
+            this.presets.forEach(preset => {
+                if (this.owners.get(element) !== preset) return
+                const result = preset.update(context as T, this)
 
-//         entity.vueContext.$forceUpdate();
-//         entity.vueContext.$nextTick(res);
-//     });
-// }
+                if (result) {
+                    this.renderer.update(existing, result)
+                }
+            })
+            return true // TODO
+        }
 
-// function install(editor, { component: CommonVueComponent, options }) {
-//     editor.on('rendernode', ({ el, node, component, bindSocket, bindControl }) => {
-//         if (component.render && component.render !== 'vue') return;
-//         node._vue = createNode(editor, CommonVueComponent, { el, node, component, bindSocket, bindControl }, options);
-//         node.update = async () => await update(node);
-//     });
+        for (const preset of this.presets) {
+            const result = preset.render(context as T, this)
 
-//     editor.on('rendercontrol', ({ el, control }) => {
-//         if (control.render && control.render !== 'vue') return;
-//         control._vue = createControl(editor, { el, control }, options);
-//         control.update = async () => await update(control)
-//     });
+            if (!result) continue
 
-//     editor.on('connectioncreated connectionremoved', connection => {
-//         update(connection.output.node)
-//         update(connection.input.node)
-//     });
+            this.renderer.mount(
+                element,
+                result.component,
+                result.props,
+                () => parent?.emit({ type: 'rendered', data: context.data })
+            )
 
-//     editor.on('nodeselected', () => {
-//         editor.nodes.map(update);
-//     });
-// }
+            this.owners.set(element, preset)
+            return true
+        }
+    }
 
-// export default {
-//     name: 'vue-render',
-//     install,
-//     mixin,
-//     Node,
-//     Socket
-// }
+    public addPreset(preset: RenderPreset<Schemes, T | { type: 'render', data: RenderData<Schemes> }>) {
+        this.presets.push(preset)
+    }
+}
