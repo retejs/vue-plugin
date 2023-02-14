@@ -12,29 +12,29 @@ export type Renderer = {
 }
 
 export function getRenderer(): Renderer {
-    const instances = new Map<Element, App<Element>>()
+  const instances = new Map<Element, App<Element>>()
 
-    return {
-        get(element) {
-            return instances.get(element)
-        },
-        mount(element, vueComponent, payload, onRendered) {
-            const app = create(element, vueComponent, payload, onRendered)
+  return {
+    get(element) {
+      return instances.get(element)
+    },
+    mount(element, vueComponent, payload, onRendered) {
+      const app = create(element, vueComponent, payload, onRendered)
 
-            instances.set(element, app)
+      instances.set(element, app)
 
-            return app
-        },
-        update(app, payload) {
-            update(app, payload)
-        },
-        unmount(element) {
-            const app = instances.get(element)
+      return app
+    },
+    update(app, payload) {
+      update(app, payload)
+    },
+    unmount(element) {
+      const app = instances.get(element)
 
-            if (app) {
-                destroy(app)
-                instances.delete(element)
-            }
-        }
+      if (app) {
+        destroy(app)
+        instances.delete(element)
+      }
     }
+  }
 }
