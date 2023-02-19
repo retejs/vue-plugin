@@ -2,6 +2,7 @@
 input(
   :type="data.type"
   :value="data.value"
+  :readonly="data.readonly"
   @change="change"
   @pointerdown.stop=""
 )
