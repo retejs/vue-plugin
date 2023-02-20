@@ -9,7 +9,9 @@ input(
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   props: ['data'],
   methods: {
     change(e) {
@@ -17,10 +19,10 @@ export default {
           ? +e.target.value
           : e.target.value
 
-      this.data.value = val
+      this.data.setValue(val)
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

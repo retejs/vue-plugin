@@ -6,7 +6,7 @@ export function create(element: any, component: any, payload: any, onRendered: a
   const app = createApp({
     props: ['data'],
     render() {
-      return h(component, this.data)
+      return h(component, { ...this.data, ref: 'child' })
     },
     mounted() {
       onRendered()
@@ -23,13 +23,14 @@ export function create(element: any, component: any, payload: any, onRendered: a
 
 export function update(app: any, payload: any) {
   if (app._instance) {
-    const proxy = app._instance.proxy
+    const ref = app._instance.refs.child
+
+    if (!ref) throw new Error('cannot update')
+
     const props = app ._instance.props
 
     props.data = { ...props.data, ...payload }
-
-    if (!proxy) throw new Error('cannot update')
-    proxy.$forceUpdate()
+    ref.$forceUpdate()
   }
 }
 

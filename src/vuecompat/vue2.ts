@@ -4,7 +4,7 @@ export function create(element: any, component: any, payload: any, onRendered: a
   const app = new Vue({
     props: ['payload'],
     render(h) {
-      return h(component, { props: this.payload })
+      return h(component, { props: this.payload, ref: 'child' })
     },
     mounted() {
       onRendered()
@@ -30,7 +30,7 @@ export function create(element: any, component: any, payload: any, onRendered: a
 export function update(app: any, payload: any) {
   app.payload = { ...app.payload, ...payload }
 
-  app.$forceUpdate()
+  app.$refs.child.$forceUpdate()
 }
 
 export function destroy(app: any) {
