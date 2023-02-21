@@ -17,9 +17,9 @@
   // Inputs
   .input(v-for='[key, input] in inputs' :key="key")
     .input-socket(:ref="el => onRef(el, key, input, 'input')")
-    .input-title(v-show='!input.showControl') {{input.label}}
+    .input-title(v-show='!input.control || !input.showControl') {{input.label}}
     .input-control(
-      v-show='input.showControl'
+      v-show='input.control && input.showControl'
       :ref="el => onRef(el, key, input.control, 'control')"
     )
 </template>
