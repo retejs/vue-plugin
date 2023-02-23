@@ -1,26 +1,28 @@
 <template lang="pug">
-.node(:class="{ selected: data.selected }")
-  .title {{data.label}}
+.node(:class="{ selected: data.selected }" data-testid="node")
+  .title(data-testid="title") {{data.label}}
 
   // Outputs
-  .output(v-for='[key, output] in outputs' :key="key")
-    .output-title {{output.label}}
-    .output-socket(:ref="el => onRef(el, key, output, 'output')")
+  .output(v-for='[key, output] in outputs' :key="key" :data-testid="'output-'+key")
+    .output-title(data-testid="output-title") {{output.label}}
+    .output-socket(:ref="el => onRef(el, key, output, 'output')" data-testid="output-socket")
 
   // Controls
   .control(
     v-for='[key, control] in controls',
     :key="key",
     :ref="el => onRef(el, key, control, 'control')"
+    :data-testid="'control-'+key"
   )
 
   // Inputs
-  .input(v-for='[key, input] in inputs' :key="key")
-    .input-socket(:ref="el => onRef(el, key, input, 'input')")
-    .input-title(v-show='!input.control || !input.showControl') {{input.label}}
+  .input(v-for='[key, input] in inputs' :key="key" :data-testid="'input-'+key")
+    .input-socket(:ref="el => onRef(el, key, input, 'input')" data-testid="input-socket")
+    .input-title(v-show='!input.control || !input.showControl' data-testid="input-title") {{input.label}}
     .input-control(
       v-show='input.control && input.showControl'
       :ref="el => onRef(el, key, input.control, 'control')"
+      data-testid="input-control"
     )
 </template>
 

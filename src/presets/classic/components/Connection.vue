@@ -1,5 +1,5 @@
 <template lang="pug">
-svg
+svg(data-testid="connection")
   path(:d="path")
 </template>
 
