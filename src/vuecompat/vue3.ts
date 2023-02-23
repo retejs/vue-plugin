@@ -1,12 +1,16 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-import { createApp, h } from 'vue'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-ignore
+import { App, createApp, h, markRaw, Ref, ref } from 'vue'
 
-export function create(element: any, component: any, payload: any, onRendered: any) {
+type Instance<P> = { app: App<Element>, payload: Ref<P> }
+
+export function create<P extends object>(element: HTMLElement, component: any, payload: P, onRendered: any): Instance<P> {
+  const state = ref(markRaw(payload)) as Ref<P>
+
   const app = createApp({
-    props: ['data'],
     render() {
-      return h(component, { ...this.data, ref: 'child' })
+      // @ts-ignore
+      return h(component, state.value)
     },
     mounted() {
       onRendered()
@@ -14,26 +18,20 @@ export function create(element: any, component: any, payload: any, onRendered: a
     updated() {
       onRendered()
     }
-  }, { data: payload })
+  })
 
   app.mount(element)
 
-  return app
-}
-
-export function update(app: any, payload: any) {
-  if (app._instance) {
-    const ref = app._instance.refs.child
-
-    if (!ref) throw new Error('cannot update')
-
-    const props = app ._instance.props
-
-    props.data = { ...props.data, ...payload }
-    ref.$forceUpdate()
+  return {
+    app,
+    payload: state
   }
 }
 
-export function destroy(app: any) {
-  app.unmount()
+export function update<P>(instance: Instance<P>, payload: P) {
+  (instance.payload as any).value = payload
+}
+
+export function destroy(instance: Instance<unknown>) {
+  instance.app.unmount()
 }
