@@ -10,7 +10,7 @@ export function create<P extends object>(element: HTMLElement, component: any, p
   const app = createApp({
     render() {
       // @ts-ignore
-      return h(component, state.value)
+      return h(component, { ...state.value, seed: Math.random() })
     },
     mounted() {
       onRendered()
@@ -29,7 +29,7 @@ export function create<P extends object>(element: HTMLElement, component: any, p
 }
 
 export function update<P>(instance: Instance<P>, payload: P) {
-  (instance.payload as any).value = payload
+  instance.payload.value = payload
 }
 
 export function destroy(instance: Instance<unknown>) {
