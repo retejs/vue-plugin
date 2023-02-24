@@ -28,8 +28,8 @@ export function create<P extends object>(element: HTMLElement, component: any, p
   }
 }
 
-export function update<P>(instance: Instance<P>, payload: P) {
-  instance.payload.value = payload
+export function update<P extends object>(instance: Instance<P>, payload: P) {
+  instance.payload.value = markRaw({ ...instance.payload.value, ...payload })
 }
 
 export function destroy(instance: Instance<unknown>) {
