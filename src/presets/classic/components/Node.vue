@@ -1,5 +1,5 @@
 <template lang="pug">
-.node(:class="{ selected: data.selected }" data-testid="node")
+.node(:class="{ selected: data.selected }" :style="nodeStyles" data-testid="node")
   .title(data-testid="title") {{data.label}}
 
   // Outputs
@@ -69,6 +69,12 @@ export default defineComponent({
     }
   },
   computed: {
+    nodeStyles() {
+      return {
+        width: Number.isFinite(this.data.width) ? `${this.data.width}px` : '',
+        height: Number.isFinite(this.data.height) ? `${this.data.height}px` : ''
+      }
+    },
     inputs() {
       return sortByIndex(Object.entries(this.data.inputs))
     },
