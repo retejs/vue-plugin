@@ -98,7 +98,7 @@ export default defineComponent({
   border-radius: 10px;
   cursor: pointer;
   box-sizing: border-box;
-  min-width: $node-width;
+  width: $node-width;
   height: auto;
   padding-bottom: 6px;
   position: relative;

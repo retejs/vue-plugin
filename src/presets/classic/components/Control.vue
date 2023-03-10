@@ -30,7 +30,7 @@ export default defineComponent({
 @import "../vars";
 
 input {
-  width: $node-width - 50px;
+  width: 100%;
   border-radius: 30px;
   background-color: white;
   padding: 2px 6px;
