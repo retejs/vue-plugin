@@ -1,49 +1,25 @@
-Vue Render
+Rete.js Vue render plugin
 ====
-#### Rete.js plugin
+[![Made in Ukraine](https://img.shields.io/badge/made_in-ukraine-ffd700.svg?labelColor=0057b7)](https://stand-with-ukraine.pp.ua)
+[![Discord](https://img.shields.io/discord/1081223198055604244?color=%237289da&label=Discord)](https://discord.gg/cxSFkPZdsV)
 
-```js
-import VueRenderPlugin from 'rete-vue-render-plugin';
+**Rete.js plugin**
 
-editor.use(VueRenderPlugin, {
-    component: CustomNodeComponent, // optional
-    options: {
-        // router, plugin, etc.
-    }
-});
-```
+## Key features
 
-```js
-import CustomNodeComponent from './CustomNodeComponent.vue';
-import CustomControlComponent from './CustomControlComponent.vue';
+- **Render elements**: visualize an elements such as nodes and connections using Vue.js components
+- **Customization**: modify appearance and behavior for a personalized workflow
+- **Presets**: predefined Vue.js components for different types of features
+  -  **[Classic](https://retejs.org/docs/guides/renderers/vue#connect-plugin)**: provides a classic visualization of nodes, connections, and controls
 
-class MyComponent extends Rete.Component {
-    constructor(){
-        // ...
-        this.data.render = 'vue';
-        this.data.component = CustomNodeComponent; // Vue.js component, not required
-        this.data.props = {}; // props for the component above, not required
-    }
-}
+## Getting Started
 
-class MyControl extends Rete.Control {
-    constructor(){
-        // ...
-        this.render = 'vue';
-        this.component = CustomControlComponent; // Vue.js component, required
-        this.props = {}; // props for the component above, not required
-    }
-}
-```
+Please refer to the [guide](https://retejs.org/docs/guides/renderers/vue) and [example](https://retejs.org/examples/vue) using this plugin
 
-```js
-const node = editor.nodes[0];
-const control = node.controls.get('ctrl');
+## Contribution
 
-node.update(); // force update
-control.update(); // of view
+Please refer to the [Contribution](https://retejs.org/docs/contribution) guide
 
-// in some cases you can gt Vue.js context
-node.vueContext
-control.vueContext
-```
+## License
+
+[MIT](https://github.com/retejs/vue-render-plugin/blob/master/LICENSE)
