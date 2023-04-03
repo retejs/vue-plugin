@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-replace": "^5.0.2",
-    "@vitejs/plugin-vue": "^3.2.0",
+    "@vitejs/plugin-vue": "^4.1.0",
     "@vitejs/plugin-vue2": "^2.2.0",
     "@vue/compiler-sfc": "^3.2.22",
     "rete": "^2.0.0-beta.1",
@@ -48,5 +48,9 @@
     "vue-template-compiler": "^2.7.14",
     "vue3": "npm:vue@^3.2.47"
   },
-  "dependencies": {}
+  "overrides": {
+    "@vitejs/plugin-vue": {
+      "vue": "^2"
+    }
+  }
 }
