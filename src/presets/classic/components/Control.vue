@@ -36,5 +36,6 @@ input {
   padding: 2px 6px;
   border: 1px solid #999;
   font-size: 110%;
+  box-sizing: border-box;
 }
 </style>
