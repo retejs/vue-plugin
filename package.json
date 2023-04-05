@@ -1,6 +1,6 @@
 {
   "name": "rete-vue-render-plugin",
-  "version": "2.0.0-beta.5",
+  "version": "2.0.0-beta.8",
   "description": "",
   "scripts": {
     "build": "rete build -c rete.config.ts",
@@ -35,7 +35,7 @@
     "@vue/compiler-sfc": "^3.2.22",
     "rete": "^2.0.0-beta.1",
     "rete-area-plugin": "^2.0.0-beta.1",
-    "rete-cli": "^1.0.0-beta.26",
+    "rete-cli": "^1.0.0-beta.29",
     "rete-render-utils": "^2.0.0-beta.1",
     "rollup-plugin-commonjs": "^9.2.2",
     "rollup-plugin-pug": "1.1.1",
@@ -52,5 +52,8 @@
     "@vitejs/plugin-vue": {
       "vue": "^2"
     }
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.21.0"
   }
 }
