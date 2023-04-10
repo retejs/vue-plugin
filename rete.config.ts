@@ -37,11 +37,11 @@ const vue2Config = {
 export default <ReteOptions[]>[vue3Config, vue2Config].map(({ output, plugins }) => ({
   input: 'src/index.ts',
   output,
-  name: 'VueRenderPlugin',
+  name: 'ReteVueRenderPlugin',
   globals: {
     'rete': 'Rete',
     'rete-area-plugin': 'ReteAreaPlugin',
-    'rete-render-utils': 'RenderUtils',
+    'rete-render-utils': 'ReteRenderUtils',
     'vue': 'Vue'
   },
   plugins
