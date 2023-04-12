@@ -57,7 +57,7 @@ export class VueRenderPlugin<Schemes extends BaseSchemes, T extends ExtraRender 
     if (existing) {
       this.presets.forEach(preset => {
         if (this.owners.get(element) !== preset) return
-        const result = preset.update(context as T, this)
+        const result = preset.update(context as Extract<T, { type: 'render' }>, this)
 
         if (result) {
           this.renderer.update(existing, result)
@@ -67,7 +67,7 @@ export class VueRenderPlugin<Schemes extends BaseSchemes, T extends ExtraRender 
     }
 
     for (const preset of this.presets) {
-      const result = preset.render(context as T, this)
+      const result = preset.render(context as Extract<T, { type: 'render' }>, this)
 
       if (!result) continue
 
