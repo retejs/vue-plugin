@@ -1,5 +1,5 @@
 import { BaseSchemes, Scope } from 'rete'
-import { Area2DInherited, RenderData } from 'rete-area-plugin'
+import { Area2DInherited } from 'rete-area-plugin'
 
 import { RenderPreset } from './presets/types'
 import { getRenderer, Renderer } from './renderer'
@@ -83,7 +83,7 @@ export class VueRenderPlugin<Schemes extends BaseSchemes, T extends ExtraRender 
     }
   }
 
-  public addPreset(preset: RenderPreset<Schemes, T | { type: 'render', data: RenderData<Schemes> }>) {
-    this.presets.push(preset)
+  public addPreset<K>(preset: RenderPreset<Schemes, K extends T ? K : T>) {
+    this.presets.push(preset as RenderPreset<Schemes, T>)
   }
 }
