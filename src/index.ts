@@ -6,6 +6,7 @@ import { getRenderer, Renderer } from './renderer'
 import { ExtraRender, Position } from './types'
 
 export * as Presets from './presets'
+export type { RenderPreset } from './presets/types'
 export type { VueArea2D } from './types'
 
 export type Produces<Schemes extends BaseSchemes> =
