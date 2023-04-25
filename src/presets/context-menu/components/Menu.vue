@@ -24,7 +24,7 @@ import Item from './Item.vue'
 import { debounce } from '../utils/debounce'
 
 export default defineComponent({
-  props: ['items', 'delay', 'searchBar', 'onHide'],
+  props: ['items', 'delay', 'searchBar', 'onHide', 'seed'],
   data() {
     return {
       filter: '',

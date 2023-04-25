@@ -34,7 +34,8 @@ export default {
     nodes: Array,
     viewport: Object,
     translate: Function,
-    point: Function
+    point: Function,
+    seed: Number
   },
   methods: {
     dblclick(e) {
