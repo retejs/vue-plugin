@@ -6,7 +6,8 @@
   @dblclick.stop.prevent="dblclick($event)"
 )
   MiniNode(
-    v-for="node of nodes"
+    v-for="(node, index) of nodes"
+    :key="[index, node.left].join('_')"
     :left="scale(node.left)"
     :top="scale(node.top)"
     :width="scale(node.width)"
