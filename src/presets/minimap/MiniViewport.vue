@@ -7,7 +7,7 @@
 
 <script>
 import { px } from './utils'
-import { useDrag } from './drag'
+import { useDrag } from '../../shared/drag'
 
 export default {
   props: ['left', 'top', 'width', 'height', 'containerWidth', 'translate'],
