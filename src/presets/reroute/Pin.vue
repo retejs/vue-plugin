@@ -12,7 +12,7 @@ import { useDrag } from '../../shared/drag'
 const pinSize = 20
 
 export default {
-  props: ['id', 'position', 'selected'],
+  props: ['position', 'selected'],
   data() {
     return {
       drag: useDrag(this.onDrag)

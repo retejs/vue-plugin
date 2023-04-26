@@ -3,7 +3,6 @@
   Pin(
     v-for="pin of pins"
     :key="pin.id"
-    :id="pin.position"
     :position="pin.position"
     :selected="pin.selected"
     @menu="menu(pin.id)"
