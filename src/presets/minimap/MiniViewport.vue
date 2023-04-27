@@ -2,6 +2,7 @@
 .mini-viewport(
   @pointerdown.stop="drag.start($event)"
   :style="styles"
+  data-testid="minimap-viewport"
 )
 </template>
 

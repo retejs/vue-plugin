@@ -1,6 +1,10 @@
 <template lang="pug">
 //- v-model cannot be used here due to compatibility with Vue 2 and 3
-input.search(:value="text", @input="$emit('change', $event.target.value)")
+input.search(
+  :value="text"
+  @input="$emit('change', $event.target.value)"
+  data-testid="context-menu-search-input"
+)
 </template>
 
 <script>

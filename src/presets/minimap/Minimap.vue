@@ -4,6 +4,7 @@
   :style="{ width: px(size * ratio), height: px(size) }"
   @pointerdown.stop.prevent=""
   @dblclick.stop.prevent="dblclick($event)"
+  data-testid="minimap"
 )
   MiniNode(
     v-for="(node, index) of nodes"

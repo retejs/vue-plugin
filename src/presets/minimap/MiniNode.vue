@@ -1,5 +1,5 @@
 <template lang="pug">
-.mini-node(:style="styles")
+.mini-node(:style="styles" data-testid="minimap-node")
 </template>
 
 <script>

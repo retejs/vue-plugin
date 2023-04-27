@@ -4,6 +4,7 @@
   @contextmenu.stop.prevent="$emit('menu')"
   :class="{ selected }"
   :style="style"
+  data-testid="pin"
 )
 </template>
 
