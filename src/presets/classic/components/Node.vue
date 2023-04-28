@@ -101,6 +101,8 @@ export default defineComponent({
   padding-bottom: 6px;
   position: relative;
   user-select: none;
+  line-height: initial;
+  font-family: Arial;
 
   &:hover {
     background: lighten($node-color, 4%);
