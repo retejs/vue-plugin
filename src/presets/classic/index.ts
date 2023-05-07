@@ -1,15 +1,16 @@
-import { CanAssignSignal, ClassicPreset } from 'rete'
+import { ClassicPreset } from 'rete'
 import { AreaPlugin } from 'rete-area-plugin'
-import { classicConnectionPath, loopConnectionPath, useDOMSocketPosition } from 'rete-render-utils'
+import { classicConnectionPath, getDOMSocketPosition, loopConnectionPath, SocketPositionWatcher } from 'rete-render-utils'
 import { Component } from 'vue'
 
-import { ClassicScheme, ExtractPayload, Position, RenderPayload, SocketPositionWatcher, VueArea2D } from '../../types'
+import { Position } from '../../types'
 import { RenderPreset } from '../types'
 import Connection from './components/Connection.vue'
 import ConnectionWrapper from './components/ConnectionWrapper.vue'
 import Control from './components/Control.vue'
 import Node from './components/Node.vue'
 import Socket from './components/Socket.vue'
+import { ClassicScheme, ExtractPayload, VueArea2D } from './types'
 
 export { default as Connection } from './components/Connection.vue'
 export { default as Control } from './components/Control.vue'
@@ -23,25 +24,23 @@ type CustomizationProps<Schemes extends ClassicScheme> = {
     control?: <N extends ClassicPreset.Control>(data: ExtractPayload<Schemes, 'control'>)
         => ((props: { data: N }) => Component) | null
 }
-type IsCompatible<K> = Extract<K, { type: 'render' }> extends { type: 'render', data: infer P } ? CanAssignSignal<P, RenderPayload<ClassicScheme>> : false // TODO should add type: 'render' ??
-type Substitute<K, Schemes extends ClassicScheme> = IsCompatible<K> extends true ? K : VueArea2D<Schemes>
-
-type ClasssicProps<Schemes extends ClassicScheme, K> = (
-    | { socketPositionWatcher: SocketPositionWatcher }
-    | { area: AreaPlugin<Schemes, Substitute<K, Schemes>>}
-) & {
+type ClassicProps<Schemes extends ClassicScheme, K> = {
+    socketPositionWatcher?: SocketPositionWatcher<AreaPlugin<Schemes, K>>,
     customize?: CustomizationProps<Schemes>
 }
 
-export function setup<Schemes extends ClassicScheme, K>(
-  props: ClasssicProps<Schemes, K>
-): RenderPreset<Schemes, VueArea2D<Schemes>> {
-  const socketPositionWatcher = 'socketPositionWatcher' in props
-    ? props.socketPositionWatcher
-    : useDOMSocketPosition(props.area as AreaPlugin<Schemes, VueArea2D<Schemes>>)
-  const { node, connection, socket, control } = props.customize || {}
+export function setup<Schemes extends ClassicScheme, K extends VueArea2D<Schemes>>(
+  props?: ClassicProps<Schemes, K>
+): RenderPreset<Schemes, K> {
+  const positionWatcher = typeof props?.socketPositionWatcher === 'undefined'
+    ? getDOMSocketPosition<Schemes, VueArea2D<Schemes>>()
+    : props?.socketPositionWatcher
+  const { node, connection, socket, control } = props?.customize || {}
 
   return {
+    attach(plugin) {
+      positionWatcher.attach(plugin.parentScope<AreaPlugin<Schemes, any>>(AreaPlugin))
+    },
     update(context, plugin) {
       const { payload } = context.data
       const parent = plugin.parentScope()
@@ -78,13 +77,12 @@ export function setup<Schemes extends ClassicScheme, K>(
         const component = connection ? connection(context.data) : Connection
         const { payload } = context.data
         const { source, target, sourceOutput, targetInput } = payload
-        const watch = socketPositionWatcher
 
         return component && { component: ConnectionWrapper, props: {
           data: context.data.payload,
           component,
-          start: context.data.start || ((change: any) => watch(source, 'output', sourceOutput, change)),
-          end: context.data.end || ((change: any) => watch(target, 'input', targetInput, change)),
+          start: context.data.start || ((change: any) => positionWatcher.listen(source, 'output', sourceOutput, change)),
+          end: context.data.end || ((change: any) => positionWatcher.listen(target, 'input', targetInput, change)),
           path: async (start: Position, end: Position) => {
             const response = await plugin.emit({ type: 'connectionpath', data: { payload, points: [start, end] } })
             const { path, points } = response.data

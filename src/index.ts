@@ -1,18 +1,22 @@
-import { BaseSchemes, Scope } from 'rete'
-import { Area2DInherited } from 'rete-area-plugin'
+import { BaseSchemes, CanAssignSignal, Scope } from 'rete'
 
 import { RenderPreset } from './presets/types'
 import { getRenderer, Renderer } from './renderer'
-import { ExtraRender, Position } from './types'
+import { Position, RenderSignal } from './types'
 
 export * as Presets from './presets'
+export type { ClassicScheme, VueArea2D } from './presets/classic/types'
 export type { RenderPreset } from './presets/types'
-export type { VueArea2D } from './types'
 
 export type Produces<Schemes extends BaseSchemes> =
     | { type: 'connectionpath', data: { payload: Schemes['Connection'], path?: string, points: Position[] } }
 
-export class VueRenderPlugin<Schemes extends BaseSchemes, T extends ExtraRender = never> extends Scope<Produces<Schemes>, Area2DInherited<Schemes, T>> {
+type Requires<Schemes extends BaseSchemes> =
+  | RenderSignal<'node', { payload: Schemes['Node'] }>
+  | RenderSignal<'connection', { payload: Schemes['Connection'], start?: Position, end?: Position }>
+  | { type: 'unmount', data: { element: HTMLElement } }
+
+export class VueRenderPlugin<Schemes extends BaseSchemes, T = Requires<Schemes>> extends Scope<Produces<Schemes>, [Requires<Schemes> | T]> {
   renderer: Renderer<unknown>
   presets: RenderPreset<Schemes, T>[] = []
   owners = new WeakMap<HTMLElement, RenderPreset<Schemes, T>>()
@@ -22,7 +26,7 @@ export class VueRenderPlugin<Schemes extends BaseSchemes, T extends ExtraRender 
     this.renderer = getRenderer()
 
     this.addPipe(context => {
-      if (!('type' in context)) return context
+      if (!context || typeof context !== 'object' || !('type' in context)) return context
 
       if (context.type === 'unmount') {
         this.unmount(context.data.element)
@@ -37,11 +41,19 @@ export class VueRenderPlugin<Schemes extends BaseSchemes, T extends ExtraRender 
               ...context.data,
               filled: true
             }
-          }
+          } as typeof context
         }
       }
 
       return context
+    })
+  }
+
+  setParent(scope: Scope<Requires<Schemes> | T>): void {
+    super.setParent(scope)
+
+    this.presets.forEach(preset => {
+      if (preset.attach) preset.attach(this)
     })
   }
 
@@ -50,7 +62,6 @@ export class VueRenderPlugin<Schemes extends BaseSchemes, T extends ExtraRender 
     this.renderer.unmount(element)
   }
 
-  // eslint-disable-next-line max-statements
   private mount(element: HTMLElement, context: T) {
     const existing = this.renderer.get(element)
     const parent = this.parentScope()
@@ -64,7 +75,7 @@ export class VueRenderPlugin<Schemes extends BaseSchemes, T extends ExtraRender 
           this.renderer.update(existing, result)
         }
       })
-      return true // TODO
+      return true
     }
 
     for (const preset of this.presets) {
@@ -76,7 +87,7 @@ export class VueRenderPlugin<Schemes extends BaseSchemes, T extends ExtraRender 
         element,
         result.component,
         result.props,
-        () => parent?.emit({ type: 'rendered', data: context.data })
+        () => parent?.emit({ type: 'rendered', data: (context as Requires<Schemes>).data } as T)
       )
 
       this.owners.set(element, preset)
@@ -84,7 +95,10 @@ export class VueRenderPlugin<Schemes extends BaseSchemes, T extends ExtraRender 
     }
   }
 
-  public addPreset<K>(preset: RenderPreset<Schemes, K extends T ? K : T>) {
-    this.presets.push(preset as RenderPreset<Schemes, T>)
+  public addPreset<K>(preset: RenderPreset<Schemes, CanAssignSignal<T, K> extends true ? K : 'Cannot apply preset. Provided signals are not compatible'>) {
+    const local = preset as RenderPreset<Schemes, T>
+
+    if (local.attach) local.attach(this)
+    this.presets.push(local)
   }
 }

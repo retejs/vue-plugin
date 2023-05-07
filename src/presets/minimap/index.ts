@@ -4,7 +4,7 @@ import { RenderPreset } from '../types'
 import Minimap from './Minimap.vue'
 import { MinimapRender } from './types'
 
-export function setup<Schemes extends BaseSchemes, K extends MinimapRender<Schemes>>(props?: { size?: number }): RenderPreset<Schemes, K> {
+export function setup<Schemes extends BaseSchemes, K extends MinimapRender>(props?: { size?: number }): RenderPreset<Schemes, K> {
   return {
     update(context) {
       if (context.data.type === 'minimap') {
