@@ -39,6 +39,8 @@ export function setup<Schemes extends ClassicScheme, K extends VueArea2D<Schemes
 
   return {
     attach(plugin) {
+      if (!plugin.hasParent()) return
+
       positionWatcher.attach(plugin.parentScope<AreaPlugin<Schemes, any>>(AreaPlugin))
     },
     update(context, plugin) {
