@@ -13,10 +13,10 @@ import { useDrag } from '../../shared/drag'
 const pinSize = 20
 
 export default {
-  props: ['position', 'selected'],
+  props: ['position', 'selected', 'getPointer'],
   data() {
     return {
-      drag: useDrag(this.onDrag)
+      drag: useDrag(this.onDrag, this.getPointer)
     }
   },
   computed: {

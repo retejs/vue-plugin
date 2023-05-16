@@ -14,7 +14,7 @@ export default {
   props: ['left', 'top', 'width', 'height', 'containerWidth', 'translate'],
   data() {
     return {
-      drag: useDrag(this.onDrag)
+      drag: useDrag(this.onDrag, e => ({ x: e.pageX, y: e.pageY }))
     }
   },
   methods: {

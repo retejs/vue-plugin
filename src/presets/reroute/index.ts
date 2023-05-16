@@ -1,4 +1,5 @@
 import { BaseSchemes } from 'rete'
+import { BaseAreaPlugin } from 'rete-area-plugin'
 
 import { RenderPreset } from '../types'
 import Pins from './Pins.vue'
@@ -26,12 +27,15 @@ export function setup<Schemes extends BaseSchemes, K extends PinsRender>(props?:
         }
       }
     },
-    render(context) {
+    render(context, plugin) {
       if (context.data.type === 'reroute-pins') {
+        const area = plugin.parentScope<BaseAreaPlugin<Schemes, PinsRender>>(BaseAreaPlugin)
+
         return {
           component: Pins,
           props: {
             ...getProps(),
+            getPointer: () => area.area.pointer,
             pins: context.data.data.pins
           }
         }

@@ -5,6 +5,7 @@ Block.item(
   @wheel.stop=""
   @pointerover="hide.cancel(); visibleSubitems = true"
   @pointerleave="hide.call()"
+  @pointerdown.stop=""
   data-testid="context-menu-item"
 )
   slot
