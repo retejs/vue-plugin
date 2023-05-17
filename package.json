@@ -1,6 +1,6 @@
 {
   "name": "rete-vue-render-plugin",
-  "version": "2.0.0-beta.18",
+  "version": "2.0.0-beta.19",
   "description": "",
   "scripts": {
     "build": "rete build -c rete.config.ts",
@@ -23,9 +23,9 @@
     "url": "https://github.com/retejs/vue-render-plugin/issues"
   },
   "peerDependencies": {
-    "rete": "^2.0.0-beta.8",
-    "rete-area-plugin": "^2.0.0-beta.10",
-    "rete-render-utils": "^2.0.0-beta.11",
+    "rete": "^2.0.0-beta.9",
+    "rete-area-plugin": "^2.0.0-beta.12",
+    "rete-render-utils": "^2.0.0-beta.12",
     "vue": "^2.6 || ^3.2"
   },
   "devDependencies": {
@@ -34,7 +34,7 @@
     "@vitejs/plugin-vue2": "^2.2.0",
     "@vue/compiler-sfc": "^3.2.22",
     "rete": "^2.0.0-beta.9",
-    "rete-area-plugin": "^2.0.0-beta.11",
+    "rete-area-plugin": "^2.0.0-beta.12",
     "rete-cli": "^1.0.0-beta.29",
     "rete-render-utils": "^2.0.0-beta.12",
     "rollup-plugin-commonjs": "^9.2.2",
