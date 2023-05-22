@@ -3,6 +3,7 @@
   @mouseover="hide.cancel()"
   @mouseleave="hide.call()"
   data-testid="context-menu"
+  rete-context-menu
 )
   Block(v-if="searchBar")
     Search(:text="filter" @change="filter = $event")
