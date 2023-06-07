@@ -3,7 +3,7 @@ input(
   :type="data.type"
   :value="data.value"
   :readonly="data.readonly"
-  @change="change"
+  @input="change"
   @pointerdown.stop=""
 )
 </template>
@@ -16,8 +16,8 @@ export default defineComponent({
   methods: {
     change(e) {
       const val = this.data.type === 'number'
-          ? +e.target.value
-          : e.target.value
+        ? +e.target.value
+        : e.target.value
 
       this.data.setValue(val)
     }
