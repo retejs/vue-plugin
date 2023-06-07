@@ -1,3 +1,7 @@
+## v2.0.0-beta.21
+
+Replace `change` event with `input` of classic Input control
+
 ## v2.0.0-beta.19
 
 Breaking changes:
