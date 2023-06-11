@@ -1,6 +1,6 @@
 import { ClassicPreset, Scope } from 'rete'
 import { classicConnectionPath, getDOMSocketPosition, loopConnectionPath, SocketPositionWatcher } from 'rete-render-utils'
-import { Component } from 'vue'
+import { DefineComponent } from 'vue'
 
 import { Position } from '../../types'
 import { RenderPreset } from '../types'
@@ -16,12 +16,14 @@ export { default as Control } from './components/Control.vue'
 export { default as Node } from './components/Node.vue'
 export { default as Socket } from './components/Socket.vue'
 
+type Component<Props> = DefineComponent<Props, any, any, any, any, any, any, any, any, any, any>
+
 type CustomizationProps<Schemes extends ClassicScheme> = {
-  node?: (data: ExtractPayload<Schemes, 'node'>) => typeof Node | null
-  connection?: (data: ExtractPayload<Schemes, 'connection'>) => typeof Connection | null
-  socket?: (data: ExtractPayload<Schemes, 'socket'>) => typeof Socket | null
+  node?: (data: ExtractPayload<Schemes, 'node'>) => Component<any> | null
+  connection?: (data: ExtractPayload<Schemes, 'connection'>) => Component<any> | null
+  socket?: (data: ExtractPayload<Schemes, 'socket'>) => Component<any> | null
   control?: <N extends ClassicPreset.Control>(data: ExtractPayload<Schemes, 'control'>)
-    => ((props: { data: N }) => Component) | null
+    => Component<{ data: N }> | null
 }
 type ClassicProps<Schemes extends ClassicScheme, K> = {
   socketPositionWatcher?: SocketPositionWatcher<Scope<never, [K]>>,
