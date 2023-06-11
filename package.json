@@ -1,6 +1,6 @@
 {
   "name": "rete-vue-render-plugin",
-  "version": "2.0.0-beta.21",
+  "version": "2.0.0-beta.22",
   "description": "",
   "scripts": {
     "build": "rete build -c rete.config.ts",
