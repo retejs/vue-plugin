@@ -19,7 +19,7 @@
     :top="viewport.top"
     :width="viewport.width"
     :height="viewport.height"
-    :containerWidth="$refs.container?.clientWidth"
+    :containerWidth="$refs.container && $refs.container.clientWidth"
     :translate="translate"
   )
 </template>
