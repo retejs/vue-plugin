@@ -1,5 +1,5 @@
 <template lang="pug">
-component(:is="component" v-bind="data" :start="startPosition" :end="endPosition", :path="observedPath")
+component(:is="component" :data="data" :start="startPosition" :end="endPosition", :path="observedPath")
 </template>
 
 <script>
@@ -45,8 +45,8 @@ export default defineComponent({
     })
 
     this.onDestroy = () => {
-        unwatch1 && unwatch1()
-        unwatch2 && unwatch2()
+      unwatch1 && unwatch1()
+      unwatch2 && unwatch2()
     }
   },
   destroyed() {
