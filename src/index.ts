@@ -9,14 +9,14 @@ export type { ClassicScheme, VueArea2D } from './presets/classic/types'
 export type { RenderPreset } from './presets/types'
 
 export type Produces<Schemes extends BaseSchemes> =
-    | { type: 'connectionpath', data: { payload: Schemes['Connection'], path?: string, points: Position[] } }
+  | { type: 'connectionpath', data: { payload: Schemes['Connection'], path?: string, points: Position[] } }
 
 type Requires<Schemes extends BaseSchemes> =
   | RenderSignal<'node', { payload: Schemes['Node'] }>
   | RenderSignal<'connection', { payload: Schemes['Connection'], start?: Position, end?: Position }>
   | { type: 'unmount', data: { element: HTMLElement } }
 
-export class VueRenderPlugin<Schemes extends BaseSchemes, T = Requires<Schemes>> extends Scope<Produces<Schemes>, [Requires<Schemes> | T]> {
+export class VuePlugin<Schemes extends BaseSchemes, T = Requires<Schemes>> extends Scope<Produces<Schemes>, [Requires<Schemes> | T]> {
   renderer: Renderer<unknown>
   presets: RenderPreset<Schemes, T>[] = []
   owners = new WeakMap<HTMLElement, RenderPreset<Schemes, T>>()

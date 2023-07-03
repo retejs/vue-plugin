@@ -1,6 +1,6 @@
 {
-  "name": "rete-vue-render-plugin",
-  "version": "2.0.0-beta.25",
+  "name": "rete-vue-plugin",
+  "version": "2.0.0-beta.26",
   "description": "",
   "scripts": {
     "build": "rete build -c rete.config.ts",
@@ -17,10 +17,10 @@
   "homepage": "https://retejs.org",
   "repository": {
     "type": "git",
-    "url": "https://github.com/retejs/vue-render-plugin.git"
+    "url": "https://github.com/retejs/vue-plugin.git"
   },
   "bugs": {
-    "url": "https://github.com/retejs/vue-render-plugin/issues"
+    "url": "https://github.com/retejs/vue-plugin/issues"
   },
   "peerDependencies": {
     "rete": "^2.0.0-beta.9",
