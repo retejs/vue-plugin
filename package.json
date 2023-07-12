@@ -1,6 +1,6 @@
 {
   "name": "rete-vue-plugin",
-  "version": "2.0.0-beta.26",
+  "version": "2.0.0",
   "description": "",
   "scripts": {
     "build": "rete build -c rete.config.ts",
@@ -23,9 +23,9 @@
     "url": "https://github.com/retejs/vue-plugin/issues"
   },
   "peerDependencies": {
-    "rete": "^2.0.0-beta.9",
-    "rete-area-plugin": "^2.0.0-beta.12",
-    "rete-render-utils": "^2.0.0-beta.12",
+    "rete": "^2.0.1",
+    "rete-area-plugin": "^2.0.0",
+    "rete-render-utils": "^2.0.0",
     "vue": "^2.6 || ^3.2"
   },
   "devDependencies": {
@@ -33,10 +33,10 @@
     "@vitejs/plugin-vue": "^4.1.0",
     "@vitejs/plugin-vue2": "^2.2.0",
     "@vue/compiler-sfc": "^3.2.22",
-    "rete": "^2.0.0-beta.9",
-    "rete-area-plugin": "^2.0.0-beta.12",
-    "rete-cli": "^1.0.0-beta.29",
-    "rete-render-utils": "^2.0.0-beta.12",
+    "rete": "^2.0.1",
+    "rete-area-plugin": "^2.0.0",
+    "rete-cli": "^1.0.1",
+    "rete-render-utils": "^2.0.0",
     "rollup-plugin-commonjs": "^9.2.2",
     "rollup-plugin-pug": "1.1.1",
     "rollup-plugin-sass": "1.12.16",
