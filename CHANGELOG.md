@@ -1,3 +1,11 @@
+## [2.0.1](https://github.com/retejs/vue-plugin/compare/v2.0.0...v2.0.1) (2023-07-17)
+
+
+### Bug Fixes
+
+* sockets/controls rerender on update ([dabf1e4](https://github.com/retejs/vue-plugin/commit/dabf1e4a37889026c0d7840ddefb7a7991204795))
+* unmount ref components ([437565b](https://github.com/retejs/vue-plugin/commit/437565be46cf906d74783d2508815b377ef0c759))
+
 ## v2.0.0-beta.21
 
 Replace `change` event with `input` of classic Input control
