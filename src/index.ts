@@ -7,6 +7,7 @@ import { Position, RenderSignal } from './types'
 export * as Presets from './presets'
 export type { ClassicScheme, VueArea2D } from './presets/classic/types'
 export type { RenderPreset } from './presets/types'
+export { default as Ref } from './Ref.vue'
 
 export type Produces<Schemes extends BaseSchemes> =
   | { type: 'connectionpath', data: { payload: Schemes['Connection'], path?: string, points: Position[] } }
