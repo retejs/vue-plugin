@@ -1,3 +1,11 @@
+## [2.0.2](https://github.com/retejs/vue-plugin/compare/v2.0.1...v2.0.2) (2023-07-17)
+
+
+### Bug Fixes
+
+* **vue2:** duplicate keys ([3e92baa](https://github.com/retejs/vue-plugin/commit/3e92baaa5dd4e46082c5e4038d592cca42c36619))
+* **vue2:** unmount ([0db40b9](https://github.com/retejs/vue-plugin/commit/0db40b9cbc0ae8a018e33369bb3cd75e82250d17))
+
 ## [2.0.1](https://github.com/retejs/vue-plugin/compare/v2.0.0...v2.0.1) (2023-07-17)
 
 
