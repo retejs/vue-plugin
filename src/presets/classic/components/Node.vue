@@ -3,7 +3,7 @@
   .title(data-testid="title") {{data.label}}
 
   // Outputs
-  .output(v-for='[key, output] in outputs()' :key="key" :data-testid="'output-'+key")
+  .output(v-for='[key, output] in outputs()' :key="key + seed" :data-testid="'output-'+key")
     .output-title(data-testid="output-title") {{output.label}}
     Ref.output-socket(
       :data="{ type: 'socket', side: 'output', key: key, nodeId: data.id, payload: output.socket }"
@@ -13,14 +13,14 @@
   // Controls
   Ref.control(
     v-for='[key, control] in controls()',
-    :key="key",
+    :key="key + seed",
     :data-testid="'control-'+key"
     :emit="emit"
     :data="{ type: 'control', payload: control }"
   )
 
   // Inputs
-  .input(v-for='[key, input] in inputs()' :key="key" :data-testid="'input-'+key")
+  .input(v-for='[key, input] in inputs()' :key="key + seed" :data-testid="'input-'+key")
     Ref.input-socket(
       :data="{ type: 'socket', side: 'input', key: key, nodeId: data.id, payload: input.socket }"
       :emit="emit"
@@ -51,7 +51,7 @@ function sortByIndex(entries) {
 }
 
 export default defineComponent({
-  props: ['data', 'emit'],
+  props: ['data', 'emit', 'seed'],
   methods: {
     nodeStyles() {
       return {
