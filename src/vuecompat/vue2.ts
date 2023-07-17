@@ -4,7 +4,7 @@ export function create(element: any, component: any, payload: any, onRendered: a
   const app = new Vue({
     props: ['payload'],
     render(h) {
-      return h(component, { props: this.payload, ref: 'child' })
+      return h(component, { props: { ...this.payload, seed: Math.random() }, ref: 'child' })
     },
     mounted() {
       onRendered()
