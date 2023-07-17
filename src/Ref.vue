@@ -10,6 +10,9 @@ export default defineComponent({
   mounted() {
     this.emit({ type: 'render', data: { ...this.data, element: this.$refs.element } })
   },
+  beforeDestroy() {
+    this.emit({ type: 'unmount', data: { element: this.$refs.element } })
+  },
   beforeUnmount() {
     this.emit({ type: 'unmount', data: { element: this.$refs.element } })
   }
