@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/retejs/vue-plugin/compare/v2.0.2...v2.0.3) (2023-08-07)
+
+
+### Bug Fixes
+
+* **classic:** allow custom controls with default props ([34de981](https://github.com/retejs/vue-plugin/commit/34de981a47b0561b2c4325a59c39353639d350b7))
+
 ## [2.0.2](https://github.com/retejs/vue-plugin/compare/v2.0.1...v2.0.2) (2023-07-17)
 
 
