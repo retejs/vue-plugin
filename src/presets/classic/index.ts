@@ -24,8 +24,7 @@ type CustomizationProps<Schemes extends ClassicScheme> = {
   node?: (data: ExtractPayload<Schemes, 'node'>) => Component<any> | null
   connection?: (data: ExtractPayload<Schemes, 'connection'>) => Component<any> | null
   socket?: (data: ExtractPayload<Schemes, 'socket'>) => Component<any> | null
-  control?: <N extends ClassicPreset.Control>(data: ExtractPayload<Schemes, 'control'>)
-    => Component<{ data: N }> | null
+  control?: (data: ExtractPayload<Schemes, 'control'>) => Component<any> | null
 }
 type ClassicProps<Schemes extends ClassicScheme, K> = {
   socketPositionWatcher?: SocketPositionWatcher<Scope<never, [K]>>,
