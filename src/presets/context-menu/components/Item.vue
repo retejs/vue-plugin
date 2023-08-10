@@ -1,23 +1,25 @@
 <template lang="pug">
-Block.item(
+Block.block(
   :class="{ hasSubitems: subitems }"
-  @click.stop="$emit('select', $event); $emit('hide')"
-  @wheel.stop=""
-  @pointerover="hide.cancel(); visibleSubitems = true"
-  @pointerleave="hide.call()"
-  @pointerdown.stop=""
   data-testid="context-menu-item"
 )
-  slot
-  .subitems(v-if="subitems && visibleSubitems")
-    Item(
-      v-for="item of subitems"
-      :key="item.key"
-      @select="item.handler($event)"
-      :delay="delay"
-      @hide="$emit('hide')"
-      :subitems="item.subitems"
-    ) {{ item.label }}
+  .content(
+    @click.stop="$emit('select', $event); $emit('hide')"
+    @wheel.stop=""
+    @pointerover="hide.cancel(); visibleSubitems = true"
+    @pointerleave="hide.call()"
+    @pointerdown.stop=""
+  )
+    slot
+    .subitems(v-if="subitems && visibleSubitems")
+      Item(
+        v-for="item of subitems"
+        :key="item.key"
+        @select="item.handler($event)"
+        :delay="delay"
+        @hide="$emit('hide')"
+        :subitems="item.subitems"
+      ) {{ item.label }}
 </template>
 
 <script>
@@ -46,6 +48,14 @@ export default {
 
 <style lang="scss" scoped>
 @import "../context-vars";
+
+.block {
+  padding: 0;
+}
+
+.content {
+  padding: 4px;
+}
 
 .hasSubitems {
   &:after {
