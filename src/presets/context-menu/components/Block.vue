@@ -12,6 +12,7 @@
   border-bottom: 1px solid $context-color-dark;
   background-color: $context-color;
   cursor: pointer;
+  box-sizing: border-box;
   width: 100%;
   position: relative;
 

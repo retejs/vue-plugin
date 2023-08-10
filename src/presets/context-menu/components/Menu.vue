@@ -7,12 +7,12 @@
 )
   Block(v-if="searchBar")
     Search(:text="filter" @change="filter = $event")
-  Item.item(
+  Item(
     v-for="item of getItems()"
     :key="item.key"
     @select="item.handler($event)"
     :delay="delay"
-    @hide="$emit('hide')"
+    @hide="onHide()"
     :subitems="item.subitems"
   )
     | {{ item.label }}
