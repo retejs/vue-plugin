@@ -1,3 +1,10 @@
+## [2.0.4](https://github.com/retejs/vue-plugin/compare/v2.0.3...v2.0.4) (2023-08-10)
+
+
+### Bug Fixes
+
+* **context-menu:** events on vue 2 ([04751db](https://github.com/retejs/vue-plugin/commit/04751db2e0fa00ca2259617822a1d0ac0ed1d66d))
+
 ## [2.0.3](https://github.com/retejs/vue-plugin/compare/v2.0.2...v2.0.3) (2023-08-07)
 
 
