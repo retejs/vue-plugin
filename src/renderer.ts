@@ -2,6 +2,8 @@
 // @ts-ignore
 import { create, destroy, update } from 'process.env.VUECOMPAT'
 
+import { type Props } from './index'
+
 export type Renderer<I> = {
   get(element: Element): I | undefined
   mount<P>(element: Element, vueComponent: any, payload: P, onRendered: any): I
@@ -9,7 +11,7 @@ export type Renderer<I> = {
   unmount(element: Element): void
 }
 
-export function getRenderer<I>(): Renderer<I> {
+export function getRenderer<I>(props?: Props): Renderer<I> {
   const instances = new Map<Element, I>()
 
   return {
@@ -17,7 +19,7 @@ export function getRenderer<I>(): Renderer<I> {
       return instances.get(element)
     },
     mount(element, vueComponent, payload, onRendered) {
-      const app = create(element, vueComponent, payload, onRendered)
+      const app = create(element, vueComponent, payload, onRendered, props)
 
       instances.set(element, app)
 

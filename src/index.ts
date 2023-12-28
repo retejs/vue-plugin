@@ -22,6 +22,18 @@ type Requires<Schemes extends BaseSchemes> =
   | { type: 'unmount', data: { element: HTMLElement } }
 
 /**
+ * Vue plugin options used to setup vue instance(s) used by retejs.
+ */
+export type Props = {
+  /**
+   * Use this to setup vue.
+   *  @param [context] to be used for createApp({ ...context }) or new Vue({ ...context })
+   *  @returns app / vue instance.
+   */
+  setup?: (context: object) => object;
+}
+
+/**
  * Vue plugin. Renders nodes, connections and other elements using React.
  * @priority 9
  * @emits connectionpath
@@ -33,9 +45,9 @@ export class VuePlugin<Schemes extends BaseSchemes, T = Requires<Schemes>> exten
   presets: RenderPreset<Schemes, T>[] = []
   owners = new WeakMap<HTMLElement, RenderPreset<Schemes, T>>()
 
-  constructor() {
+  constructor(props?: Props) {
     super('vue-render')
-    this.renderer = getRenderer()
+    this.renderer = getRenderer(props)
 
     this.addPipe(context => {
       if (!context || typeof context !== 'object' || !('type' in context)) return context
