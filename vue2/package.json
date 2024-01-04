@@ -1,0 +1,41 @@
+{
+  "name": "rete-vue-plugin",
+  "version": "2.0.4",
+  "description": "",
+  "author": "Vitaliy Stoliarov",
+  "license": "MIT",
+  "keywords": [
+    "vue",
+    "vuejs",
+    "rete",
+    "Rete.js"
+  ],
+  "homepage": "https://retejs.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/retejs/vue-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/retejs/vue-plugin/issues"
+  },
+  "peerDependencies": {
+    "rete": "^2.0.1",
+    "rete-area-plugin": "^2.0.0",
+    "rete-render-utils": "^2.0.0",
+    "vue": "^2.6 || ^3.2"
+  },
+  "overrides": {
+    "@vitejs/plugin-vue": {
+      "vue": "^2"
+    }
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.21.0"
+  },
+  "module": "rete-vue-plugin.esm.js",
+  "main": "rete-vue-plugin.common.js",
+  "jsdelivr": "rete-vue-plugin.min.js",
+  "unpkg": "rete-vue-plugin.min.js",
+  "types": "../_types/index.d.ts",
+  "typings": "../_types/index.d.ts"
+}
