@@ -36,7 +36,7 @@
     "@vue/compiler-sfc": "^3.2.22",
     "rete": "^2.0.1",
     "rete-area-plugin": "^2.0.0",
-    "rete-cli": "^1.0.1",
+    "rete-cli": "^1.0.2",
     "rete-render-utils": "^2.0.0",
     "rollup-plugin-commonjs": "^9.2.2",
     "rollup-plugin-pug": "1.1.1",
