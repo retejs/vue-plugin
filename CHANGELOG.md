@@ -1,3 +1,10 @@
+## [2.0.5](https://github.com/retejs/vue-plugin/compare/v2.0.4...v2.0.5) (2024-01-27)
+
+
+### Bug Fixes
+
+* **build:** source maps ([d3a77c0](https://github.com/retejs/vue-plugin/commit/d3a77c02968061151e8bc18aa298f8b4048f9005))
+
 ## [2.0.4](https://github.com/retejs/vue-plugin/compare/v2.0.3...v2.0.4) (2023-08-10)
 
 
