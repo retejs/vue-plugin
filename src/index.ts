@@ -3,6 +3,7 @@ import { BaseSchemes, CanAssignSignal, Scope } from 'rete'
 import { RenderPreset } from './presets/types'
 import { getRenderer, Renderer } from './renderer'
 import { Position, RenderSignal } from './types'
+import { Context, Instance } from './vuecompat/types'
 
 export * as Presets from './presets'
 export type { ClassicScheme, VueArea2D } from './presets/classic/types'
@@ -30,7 +31,7 @@ export type Props = {
    *  @param [context] to be used for createApp({ ...context }) or new Vue({ ...context })
    *  @returns app / vue instance.
    */
-  setup?: (context: object) => object;
+  setup?: (context: Context) => Instance;
 }
 
 /**
