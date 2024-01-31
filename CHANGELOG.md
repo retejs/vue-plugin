@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/retejs/vue-plugin/compare/v2.0.5...v2.1.0) (2024-01-31)
+
+
+### Features
+
+* add setup function to props that allows to create the vue/app instance yourself (in case you want to setup plugins, register components...) ([f752ebf](https://github.com/retejs/vue-plugin/commit/f752ebfaae176e51dc06e7d378f3f635337fb6de))
+
 ## [2.0.5](https://github.com/retejs/vue-plugin/compare/v2.0.4...v2.0.5) (2024-01-27)
 
 
