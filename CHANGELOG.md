@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/retejs/vue-plugin/compare/v2.1.0...v2.1.1) (2024-08-30)
+
+
+### Bug Fixes
+
+* update cli and fix linting errors ([ec9bbac](https://github.com/retejs/vue-plugin/commit/ec9bbac07647f66e10736da1664d11ec7429ce98))
+
 # [2.1.0](https://github.com/retejs/vue-plugin/compare/v2.0.5...v2.1.0) (2024-01-31)
 
 
