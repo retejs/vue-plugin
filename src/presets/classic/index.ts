@@ -27,20 +27,18 @@ type CustomizationProps<Schemes extends ClassicScheme> = {
   control?: (data: ExtractPayload<Schemes, 'control'>) => Component<any> | null
 }
 type ClassicProps<Schemes extends ClassicScheme, K> = {
-  socketPositionWatcher?: SocketPositionWatcher<Scope<never, [K]>>,
+  socketPositionWatcher?: SocketPositionWatcher<Scope<never, [K]>>
   customize?: CustomizationProps<Schemes>
 }
 
 /**
  * Classic preset for rendering nodes, connections, controls and sockets.
  */
-export function setup<Schemes extends ClassicScheme, K extends VueArea2D<Schemes>>(
-  props?: ClassicProps<Schemes, K>
-): RenderPreset<Schemes, K> {
+export function setup<Schemes extends ClassicScheme, K extends VueArea2D<Schemes>>(props?: ClassicProps<Schemes, K>): RenderPreset<Schemes, K> {
   const positionWatcher = typeof props?.socketPositionWatcher === 'undefined'
     ? getDOMSocketPosition<Schemes, K>()
-    : props?.socketPositionWatcher
-  const { node, connection, socket, control } = props?.customize || {}
+    : props.socketPositionWatcher
+  const { node, connection, socket, control } = props?.customize ?? {}
 
   return {
     attach(plugin) {
@@ -60,8 +58,12 @@ export function setup<Schemes extends ClassicScheme, K extends VueArea2D<Schemes
 
         return {
           data: payload,
-          ...(start ? { start } : {}),
-          ...(end ? { end } : {})
+          ...start
+            ? { start }
+            : {},
+          ...end
+            ? { end }
+            : {}
         }
       }
       return { data: payload }
@@ -72,25 +74,31 @@ export function setup<Schemes extends ClassicScheme, K extends VueArea2D<Schemes
       const emit = parent.emit.bind(parent)
 
       if (context.data.type === 'node') {
-        const component = node ? node(context.data) : Node
+        const component = node
+          ? node(context.data)
+          : Node
 
         return component && {
-          component, props: {
+          component,
+          props: {
             data: context.data.payload,
             emit
           }
         }
       } else if (context.data.type === 'connection') {
-        const component = connection ? connection(context.data) : Connection
+        const component = connection
+          ? connection(context.data)
+          : Connection
         const { payload } = context.data
         const { source, target, sourceOutput, targetInput } = payload
 
         return component && {
-          component: ConnectionWrapper, props: {
+          component: ConnectionWrapper,
+          props: {
             data: context.data.payload,
             component,
-            start: context.data.start || ((change: any) => positionWatcher.listen(source, 'output', sourceOutput, change)),
-            end: context.data.end || ((change: any) => positionWatcher.listen(target, 'input', targetInput, change)),
+            start: context.data.start ?? ((change: any) => positionWatcher.listen(source, 'output', sourceOutput, change)),
+            end: context.data.end ?? ((change: any) => positionWatcher.listen(target, 'input', targetInput, change)),
             path: async (start: Position, end: Position) => {
               const response = await plugin.emit({ type: 'connectionpath', data: { payload, points: [start, end] } })
 
@@ -110,10 +118,13 @@ export function setup<Schemes extends ClassicScheme, K extends VueArea2D<Schemes
         }
       } else if (context.data.type === 'socket') {
         const { payload } = context.data
-        const component = socket ? socket(context.data) : Socket
+        const component = socket
+          ? socket(context.data)
+          : Socket
 
         return {
-          component, props: {
+          component,
+          props: {
             data: payload
           }
         }
@@ -124,7 +135,8 @@ export function setup<Schemes extends ClassicScheme, K extends VueArea2D<Schemes
           const component = control(context.data)
 
           return component && {
-            component, props: {
+            component,
+            props: {
               data: payload
             }
           }
@@ -132,7 +144,8 @@ export function setup<Schemes extends ClassicScheme, K extends VueArea2D<Schemes
 
         return context.data.payload instanceof ClassicPreset.InputControl
           ? {
-            component: Control, props: {
+            component: Control,
+            props: {
               data: payload
             }
           }

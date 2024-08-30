@@ -4,3 +4,6 @@ node_modules
 npm-debug.log
 dist
 docs
+/coverage
+.rete-cli
+.sonar
