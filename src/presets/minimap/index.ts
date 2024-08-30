@@ -13,7 +13,7 @@ export function setup<Schemes extends BaseSchemes, K extends MinimapRender>(prop
       if (context.data.type === 'minimap') {
         return {
           nodes: context.data.nodes,
-          size: props?.size || 200,
+          size: props?.size ?? 200,
           ratio: context.data.ratio,
           viewport: context.data.viewport,
           translate: context.data.translate,
@@ -27,7 +27,7 @@ export function setup<Schemes extends BaseSchemes, K extends MinimapRender>(prop
           component: Minimap,
           props: {
             nodes: context.data.nodes,
-            size: props?.size || 200,
+            size: props?.size ?? 200,
             ratio: context.data.ratio,
             viewport: context.data.viewport,
             translate: context.data.translate,

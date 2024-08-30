@@ -22,7 +22,9 @@ export function create<P extends object>(element: HTMLElement, component: any, p
     }
   }
 
-  const app = props?.setup ? props.setup(context) : createApp(context)
+  const app = props?.setup
+    ? props.setup(context)
+    : createApp(context)
 
   app.mount(element)
 

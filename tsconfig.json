@@ -1,6 +1,6 @@
 {
+    "extends": "rete-cli/configs/tsconfig.json",
     "compilerOptions": {
-        "strict": true,
         "lib": ["DOM"]
     },
     "include": ["src"]

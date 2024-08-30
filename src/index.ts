@@ -31,7 +31,7 @@ export type Props = {
    *  @param [context] to be used for createApp({ ...context }) or new Vue({ ...context })
    *  @returns app / vue instance.
    */
-  setup?: (context: Context) => Instance;
+  setup?: (context: Context) => Instance
 }
 
 /**
@@ -112,7 +112,7 @@ export class VuePlugin<Schemes extends BaseSchemes, T = Requires<Schemes>> exten
         element,
         result.component,
         result.props,
-        () => parent?.emit({ type: 'rendered', data: (context as Requires<Schemes>).data } as T)
+        () => parent.emit({ type: 'rendered', data: (context as Requires<Schemes>).data } as T)
       )
 
       this.owners.set(element, preset)

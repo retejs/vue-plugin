@@ -16,9 +16,9 @@ type Props = {
  */
 export function setup<Schemes extends BaseSchemes, K extends PinsRender>(props?: Props): RenderPreset<Schemes, K> {
   const getProps = () => ({
-    menu: props?.contextMenu || (() => null),
-    translate: props?.translate || (() => null),
-    down: props?.pointerdown || (() => null)
+    menu: props?.contextMenu ?? (() => null),
+    translate: props?.translate ?? (() => null),
+    down: props?.pointerdown ?? (() => null)
   })
 
   return {

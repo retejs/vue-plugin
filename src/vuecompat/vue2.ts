@@ -16,7 +16,9 @@ export function create(element: any, component: any, payload: any, onRendered: a
     }
   }
 
-  const app: Vue & { payload?: Record<string, unknown> } = props?.setup ? props.setup(context) as Vue : new Vue(context)
+  const app: Vue & { payload?: Record<string, unknown> } = props?.setup
+    ? props.setup(context) as Vue
+    : new Vue(context)
 
   app.payload = payload
 

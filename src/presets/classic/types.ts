@@ -2,7 +2,7 @@ import { ClassicPreset as Classic, GetSchemes, NodeId } from 'rete'
 
 import { Position, RenderSignal } from '../../types'
 
-type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I)=> void)
+type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I) => void)
   ? I
   : never
 type GetControls<
@@ -33,4 +33,4 @@ export type VueArea2D<T extends ClassicScheme> =
   }>
   | { type: 'unmount', data: { element: HTMLElement } }
 
-export type ExtractPayload<T extends ClassicScheme, K extends string> = Extract<VueArea2D<T>, { type: 'render', data: { type: K }}>['data']
+export type ExtractPayload<T extends ClassicScheme, K extends string> = Extract<VueArea2D<T>, { type: 'render', data: { type: K } }>['data']
