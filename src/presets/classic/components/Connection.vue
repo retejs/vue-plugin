@@ -1,13 +1,13 @@
 <template lang="pug">
 svg(data-testid="connection")
-  path(:d="path")
+  path(:d="path" :style="{...styles}")
 </template>
 
 <script>
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  props: ['data', 'start', 'end', 'path']
+  props: ['data', 'start', 'end', 'path', 'styles']
 })
 </script>
 
