@@ -3,9 +3,7 @@ component(:is="component" :data="data" :start="startPosition" :end="endPosition"
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-
-export default defineComponent({
+export default {
   props: ['component', 'data', 'start', 'end', 'path'],
   data() {
     return {
@@ -52,5 +50,5 @@ export default defineComponent({
   destroyed() {
     if (this.onDestroy) this.onDestroy()
   }
-})
+}
 </script>

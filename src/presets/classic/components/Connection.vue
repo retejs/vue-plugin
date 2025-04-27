@@ -4,11 +4,9 @@ svg(data-testid="connection")
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({
+export default {
   props: ['data', 'start', 'end', 'path']
-})
+}
 </script>
 
 <style lang="scss" scoped>
