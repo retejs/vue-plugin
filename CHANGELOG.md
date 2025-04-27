@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/retejs/vue-plugin/compare/v2.1.1...v2.1.2) (2025-04-27)
+
+
+### Bug Fixes
+
+* remove unnecessary definecomponent imports in vue components for vue 2.6 ([dfb4368](https://github.com/retejs/vue-plugin/commit/dfb436891d8b102f50da055baf3ea10431e3e711))
+
 ## [2.1.1](https://github.com/retejs/vue-plugin/compare/v2.1.0...v2.1.1) (2024-08-30)
 
 
