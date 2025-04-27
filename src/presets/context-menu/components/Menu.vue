@@ -19,13 +19,12 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
 import Block from './Block.vue'
 import Search from './Search.vue'
 import Item from './Item.vue'
 import { debounce } from '../utils/debounce'
 
-export default defineComponent({
+export default {
   props: ['items', 'delay', 'searchBar', 'onHide', 'seed'],
   data() {
     return {
@@ -51,7 +50,7 @@ export default defineComponent({
     Search,
     Item
   }
-})
+}
 </script>
 
 <style lang="scss" scoped>

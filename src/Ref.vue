@@ -3,9 +3,7 @@ div(v-bind="$props" ref="element")
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({
+export default {
   props: ['data', 'emit'],
   mounted() {
     this.emit({ type: 'render', data: { ...this.data, element: this.$refs.element } })
@@ -16,5 +14,5 @@ export default defineComponent({
   beforeUnmount() {
     this.emit({ type: 'unmount', data: { element: this.$refs.element } })
   }
-})
+}
 </script>

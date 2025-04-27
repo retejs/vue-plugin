@@ -37,7 +37,6 @@
 
 
 <script lang="js">
-import { defineComponent } from 'vue'
 import Ref from '../../../Ref.vue'
 
 function sortByIndex(entries) {
@@ -50,7 +49,7 @@ function sortByIndex(entries) {
   return entries
 }
 
-export default defineComponent({
+export default {
   props: ['data', 'emit', 'seed'],
   methods: {
     nodeStyles() {
@@ -72,7 +71,7 @@ export default defineComponent({
   components: {
     Ref
   }
-})
+}
 </script>
 
 <style lang="scss" scoped>
