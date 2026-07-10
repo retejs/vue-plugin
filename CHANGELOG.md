@@ -1,3 +1,10 @@
+## [2.1.3](https://github.com/retejs/vue-plugin/compare/v2.1.2...v2.1.3) (2026-07-10)
+
+
+### Bug Fixes
+
+* set input control text color for dark color-scheme ([48fb158](https://github.com/retejs/vue-plugin/commit/48fb15815de1f1b38972fd501c5572e26b073903))
+
 ## [2.1.2](https://github.com/retejs/vue-plugin/compare/v2.1.1...v2.1.2) (2025-04-27)
 
 
